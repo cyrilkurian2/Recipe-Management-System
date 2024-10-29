@@ -1,0 +1,22 @@
+.center-align{
+    margin: 10%;
+    /* width: 50%; */
+    border: 3px solid green;
+    border-radius: 18px;
+    padding: 0px;
+    text-align: center;
+    background-color: rgb(202, 196, 196);
+  }
+
+.view-recipe-image{
+    background-image: url('/view-recipe/assets/recipe1.jpg');
+    background-repeat: no-repeat;
+    
+    background-size:cover;
+    background-position: center;
+
+    border-radius: 18px;
+    height:400px;
+    box-shadow: 0 0 10px 8px #232324;
+    /* background-position-y: top; */
+}
