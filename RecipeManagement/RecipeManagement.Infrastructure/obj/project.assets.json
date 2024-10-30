@@ -4148,11 +4148,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nohan.antony\\Documents\\Assignments\\RecipeManagement\\RecipeManagement.Infrastructure\\RecipeManagement.Infrastructure.csproj",
+      "projectUniqueName": "C:\\Users\\nohan.antony\\Documents\\Recipe-Management-System\\RecipeManagement\\RecipeManagement.Infrastructure\\RecipeManagement.Infrastructure.csproj",
       "projectName": "RecipeManagement.Infrastructure",
-      "projectPath": "C:\\Users\\nohan.antony\\Documents\\Assignments\\RecipeManagement\\RecipeManagement.Infrastructure\\RecipeManagement.Infrastructure.csproj",
+      "projectPath": "C:\\Users\\nohan.antony\\Documents\\Recipe-Management-System\\RecipeManagement\\RecipeManagement.Infrastructure\\RecipeManagement.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\nohan.antony\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nohan.antony\\Documents\\Assignments\\RecipeManagement\\RecipeManagement.Infrastructure\\obj\\",
+      "outputPath": "C:\\Users\\nohan.antony\\Documents\\Recipe-Management-System\\RecipeManagement\\RecipeManagement.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\nohan.antony\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4169,11 +4169,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\nohan.antony\\Documents\\Assignments\\RecipeManagement\\RecipeManagement.Application\\RecipeManagement.Application.csproj": {
-              "projectPath": "C:\\Users\\nohan.antony\\Documents\\Assignments\\RecipeManagement\\RecipeManagement.Application\\RecipeManagement.Application.csproj"
+            "C:\\Users\\nohan.antony\\Documents\\Recipe-Management-System\\RecipeManagement\\RecipeManagement.Application\\RecipeManagement.Application.csproj": {
+              "projectPath": "C:\\Users\\nohan.antony\\Documents\\Recipe-Management-System\\RecipeManagement\\RecipeManagement.Application\\RecipeManagement.Application.csproj"
             },
-            "C:\\Users\\nohan.antony\\Documents\\Assignments\\RecipeManagement\\RecipeManagement.Domain\\RecipeManagement.Domain.csproj": {
-              "projectPath": "C:\\Users\\nohan.antony\\Documents\\Assignments\\RecipeManagement\\RecipeManagement.Domain\\RecipeManagement.Domain.csproj"
+            "C:\\Users\\nohan.antony\\Documents\\Recipe-Management-System\\RecipeManagement\\RecipeManagement.Domain\\RecipeManagement.Domain.csproj": {
+              "projectPath": "C:\\Users\\nohan.antony\\Documents\\Recipe-Management-System\\RecipeManagement\\RecipeManagement.Domain\\RecipeManagement.Domain.csproj"
             }
           }
         }

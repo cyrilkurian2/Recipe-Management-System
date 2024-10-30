@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fuNGzEBPIUUHHH/5pJjnV06BcrlpQen7qEBdTVtUjEeWrN8eoDMQnF8d4oD5BuEafeKK9QALfU/lybc2fF+sKA==",
+  "dgSpecHash": "sKpMG6yzOsUC4f8mbG3BbejLXounQD30WYwqvdm5lIcF2V3naDaTx477hosjIAPFxNcXopQZ61RyhPvEBHVNpw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\nohan.antony\\Documents\\Assignments\\RecipeManagement\\RecipeManagement.Application\\RecipeManagement.Application.csproj",
+  "projectFilePath": "C:\\Users\\nohan.antony\\Documents\\Recipe-Management-System\\RecipeManagement\\RecipeManagement.Application\\RecipeManagement.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\nohan.antony\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\nohan.antony\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

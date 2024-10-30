@@ -11,8 +11,8 @@ using RecipeManagement.Infrastructure.Data;
 namespace RecipeManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(RecipeManagementContext))]
-    [Migration("20241030071437_migration1")]
-    partial class migration1
+    [Migration("20241030092249_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
