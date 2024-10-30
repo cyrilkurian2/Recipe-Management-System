@@ -3,6 +3,18 @@
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
+    background-image: url('../../assets/profile_pic.avif');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.profile-recipe-pic{
+    background-image: url('../../assets/recipe1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 15rem;
 }
 .recipe-card {
     margin-bottom: 20px;
