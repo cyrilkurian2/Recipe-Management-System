@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { RecipeCardComponent } from '../recipe-card/recipe-card.component';
 import Chart from 'chart.js/auto';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [NavbarComponent,RecipeCardComponent],
+  imports: [NavbarComponent,RecipeCardComponent,RouterModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
