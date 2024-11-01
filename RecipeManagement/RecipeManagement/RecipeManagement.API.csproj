@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RecipeManagement.Application\RecipeManagement.Application.csproj" />
     <ProjectReference Include="..\RecipeManagement.Infrastructure\RecipeManagement.Infrastructure.csproj" />
   </ItemGroup>
 

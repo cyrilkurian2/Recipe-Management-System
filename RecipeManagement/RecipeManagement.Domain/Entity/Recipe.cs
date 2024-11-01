@@ -16,7 +16,6 @@ namespace RecipeManagement.Domain.Entity
         public Category category { get; set; }  
         public bool IsComplete {  get; set; }
 
-        public User User { get; set; }
 
     }
 }

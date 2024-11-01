@@ -28,3 +28,8 @@ C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\Recipe
 C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement.Application\obj\Debug\net8.0\RecipeManagement.Application.pdb
 C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement.Application\obj\Debug\net8.0\RecipeManagement.Application.genruntimeconfig.cache
 C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement.Application\obj\Debug\net8.0\ref\RecipeManagement.Application.dll
+C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement.Application\bin\Debug\net8.0\RecipeManagement.Domain.dll
+C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement.Application\bin\Debug\net8.0\RecipeManagement.Domain.pdb
+C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement.Application\obj\Debug\net8.0\RecipeMa.87DAD0B0.Up2Date
+C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement.Application\bin\Debug\net8.0\RecipeManagement.Infrastructure.dll
+C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement.Application\bin\Debug\net8.0\RecipeManagement.Infrastructure.pdb

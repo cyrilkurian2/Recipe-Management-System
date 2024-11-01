@@ -9,8 +9,10 @@
       "RecipeManagement.Application/1.0.0": {
         "dependencies": {
           "MediatR": "12.4.1",
+          "Microsoft.EntityFrameworkCore": "8.0.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.10",
-          "Microsoft.EntityFrameworkCore.Tools": "8.0.10"
+          "Microsoft.EntityFrameworkCore.Tools": "8.0.10",
+          "RecipeManagement.Infrastructure": "1.0.0"
         },
         "runtime": {
           "RecipeManagement.Application.dll": {}
@@ -935,6 +937,27 @@
             "fileVersion": "6.0.21.52210"
           }
         }
+      },
+      "RecipeManagement.Domain/1.0.0": {
+        "dependencies": {
+          "MediatR": "12.4.1",
+          "Microsoft.EntityFrameworkCore": "8.0.10",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.10"
+        },
+        "runtime": {
+          "RecipeManagement.Domain.dll": {}
+        }
+      },
+      "RecipeManagement.Infrastructure/1.0.0": {
+        "dependencies": {
+          "MediatR": "12.4.1",
+          "Microsoft.EntityFrameworkCore": "8.0.10",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.10",
+          "RecipeManagement.Domain": "1.0.0"
+        },
+        "runtime": {
+          "RecipeManagement.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -1489,6 +1512,16 @@
       "sha512": "sha512-IXoJOXIqc39AIe+CIR7koBtRGMiCt/LPM3lI+PELtDIy9XdyeSrwXFdWV9dzJ2Awl0paLWUaknLxFQ5HpHZUog==",
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
+    },
+    "RecipeManagement.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "RecipeManagement.Infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

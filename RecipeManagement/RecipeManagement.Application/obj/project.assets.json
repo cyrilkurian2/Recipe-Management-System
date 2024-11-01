@@ -1525,6 +1525,37 @@
             "rid": "win"
           }
         }
+      },
+      "RecipeManagement.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "MediatR": "12.4.1",
+          "Microsoft.EntityFrameworkCore": "8.0.10",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.10"
+        },
+        "compile": {
+          "bin/placeholder/RecipeManagement.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RecipeManagement.Domain.dll": {}
+        }
+      },
+      "RecipeManagement.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "MediatR": "12.4.1",
+          "Microsoft.EntityFrameworkCore": "8.0.10",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.10",
+          "RecipeManagement.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/RecipeManagement.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/RecipeManagement.Infrastructure.dll": {}
+        }
       }
     }
   },
@@ -4091,13 +4122,25 @@
         "system.windows.extensions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "RecipeManagement.Domain/1.0.0": {
+      "type": "project",
+      "path": "../RecipeManagement.Domain/RecipeManagement.Domain.csproj",
+      "msbuildProject": "../RecipeManagement.Domain/RecipeManagement.Domain.csproj"
+    },
+    "RecipeManagement.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../RecipeManagement.Infrastructure/RecipeManagement.Infrastructure.csproj",
+      "msbuildProject": "../RecipeManagement.Infrastructure/RecipeManagement.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "MediatR >= 12.4.1",
+      "Microsoft.EntityFrameworkCore >= 8.0.10",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.10",
-      "Microsoft.EntityFrameworkCore.Tools >= 8.0.10"
+      "Microsoft.EntityFrameworkCore.Tools >= 8.0.10",
+      "RecipeManagement.Infrastructure >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -4126,7 +4169,11 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\nohan.antony\\Documents\\Recipe-Management-System\\RecipeManagement\\RecipeManagement.Infrastructure\\RecipeManagement.Infrastructure.csproj": {
+              "projectPath": "C:\\Users\\nohan.antony\\Documents\\Recipe-Management-System\\RecipeManagement\\RecipeManagement.Infrastructure\\RecipeManagement.Infrastructure.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -4147,6 +4194,10 @@
           "MediatR": {
             "target": "Package",
             "version": "[12.4.1, )"
+          },
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[8.0.10, )"
           },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",

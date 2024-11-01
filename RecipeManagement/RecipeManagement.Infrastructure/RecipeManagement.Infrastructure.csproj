@@ -17,8 +17,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\RecipeManagement.Application\RecipeManagement.Application.csproj" />
     <ProjectReference Include="..\RecipeManagement.Domain\RecipeManagement.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Repository\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="RecipeManagement.Application">
+      <HintPath>..\RecipeManagement.Application\bin\Debug\net8.0\RecipeManagement.Application.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

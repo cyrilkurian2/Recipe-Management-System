@@ -272,11 +272,9 @@ C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\Recipe
 C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement\bin\Debug\net8.0\RecipeManagement.Application.dll
 C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement\bin\Debug\net8.0\RecipeManagement.Domain.dll
 C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement\bin\Debug\net8.0\RecipeManagement.Infrastructure.dll
 C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement\bin\Debug\net8.0\RecipeManagement.Infrastructure.pdb
-C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement\bin\Debug\net8.0\RecipeManagement.Application.pdb
 C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement\bin\Debug\net8.0\RecipeManagement.Domain.pdb
 C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement\obj\Debug\net8.0\RecipeManagement.API.csproj.AssemblyReference.cache
 C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement\obj\Debug\net8.0\RecipeManagement.API.GeneratedMSBuildEditorConfig.editorconfig
@@ -300,3 +298,5 @@ C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\Recipe
 C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement\obj\Debug\net8.0\RecipeManagement.API.pdb
 C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement\obj\Debug\net8.0\RecipeManagement.API.genruntimeconfig.cache
 C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement\obj\Debug\net8.0\ref\RecipeManagement.API.dll
+C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement\bin\Debug\net8.0\RecipeManagement.Application.dll
+C:\Users\nohan.antony\Documents\Recipe-Management-System\RecipeManagement\RecipeManagement\bin\Debug\net8.0\RecipeManagement.Application.pdb

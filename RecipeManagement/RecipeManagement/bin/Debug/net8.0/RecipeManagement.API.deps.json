@@ -12,6 +12,7 @@
           "Microsoft.EntityFrameworkCore": "8.0.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.10",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.10",
+          "RecipeManagement.Application": "1.0.0",
           "RecipeManagement.Infrastructure": "1.0.0",
           "Swashbuckle.AspNetCore": "6.4.0"
         },
@@ -963,7 +964,9 @@
       "RecipeManagement.Application/1.0.0": {
         "dependencies": {
           "MediatR": "12.4.1",
-          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.10"
+          "Microsoft.EntityFrameworkCore": "8.0.10",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.10",
+          "RecipeManagement.Infrastructure": "1.0.0"
         },
         "runtime": {
           "RecipeManagement.Application.dll": {}
@@ -984,7 +987,6 @@
           "MediatR": "12.4.1",
           "Microsoft.EntityFrameworkCore": "8.0.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.10",
-          "RecipeManagement.Application": "1.0.0",
           "RecipeManagement.Domain": "1.0.0"
         },
         "runtime": {
