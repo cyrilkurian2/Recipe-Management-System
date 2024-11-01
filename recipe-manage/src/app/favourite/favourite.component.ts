@@ -3,18 +3,16 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { RecipeCardComponent } from '../recipe-card/recipe-card.component';
 
 @Component({
-  selector: 'app-homepage',
+  selector: 'app-favourite',
   standalone: true,
-  imports: [NavbarComponent, RecipeCardComponent],
-  templateUrl: './homepage.component.html',
-  styleUrl: './homepage.component.scss'
+  imports: [NavbarComponent,RecipeCardComponent],
+  templateUrl: './favourite.component.html',
+  styleUrl: './favourite.component.scss'
 })
-export class HomepageComponent {
-  exploreRecipesHeading: string = 'Explore Recipes';
+export class FavouriteComponent {
   selectedCategory: string | null = null;
 
   onCategorySelected(category: string) {
-    this.exploreRecipesHeading = `${category} Recipes`;
     this.selectedCategory = category;
   }
 }

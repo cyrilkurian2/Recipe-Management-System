@@ -30,8 +30,10 @@
             </div>
         </div>
 
-        <app-recipe-card></app-recipe-card>
+        <!-- Use RecipeCardComponent with isProfileView as true -->
+        <app-recipe-card [isProfileView]="true"></app-recipe-card>
 
+        
         <!-- Top 5 Rated Recipes Chart -->
         <div class="chart-container ">
             <canvas id="topRatedChart"></canvas>

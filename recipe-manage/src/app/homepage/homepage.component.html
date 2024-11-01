@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<app-navbar (categorySelected)="onCategorySelected($event)"></app-navbar>
 
 <div class="banner_src">
   <div class="justify-content-center text-light center">
@@ -15,10 +15,10 @@
   <br />
   <div class="d-flex align-items-center">
     <hr class="flex-grow-1" />
-    <span class="px-2"><h3>Explore Recipes</h3></span>
+    <span class="px-2"><h3>{{ exploreRecipesHeading }}</h3></span>
     <hr class="flex-grow-1" />
   </div>
 
-<!-- recipe-card -->
-
-<app-recipe-card></app-recipe-card>
+  <!-- Pass selectedCategory to RecipeCardComponent -->
+  <app-recipe-card [selectedCategory]="selectedCategory" [isProfileView]="false"></app-recipe-card>
+</div>

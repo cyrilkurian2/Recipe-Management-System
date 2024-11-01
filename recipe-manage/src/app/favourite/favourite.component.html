@@ -1,0 +1,14 @@
+<app-navbar (categorySelected)="onCategorySelected($event)"></app-navbar>
+
+<div class="explore-section center-explore">
+  <br />
+  <div class="d-flex align-items-center">
+    <hr class="flex-grow-1" />
+    <span class="px-2"><h3>Favourite Recipes</h3></span>
+    <hr class="flex-grow-1" />
+  </div>
+
+  <!-- Pass selectedCategory to RecipeCardComponent -->
+  <app-recipe-card [selectedCategory]="selectedCategory" [isProfileView]="false" [showFavoritesOnly]="true"></app-recipe-card>
+</div>
+
