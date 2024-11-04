@@ -18,6 +18,8 @@ namespace RecipeManagement.Application.Requets.Commands.RecipeIngredientCommands
 
         public string Quantity { get; set; }
 
+        public int UserId {  get; set; }
+
         //to think Recipe ingredients just need recipeId and IngredientID?
         //cant we add lsit of ingredients in ingredient table itselfS
 
@@ -39,10 +41,21 @@ namespace RecipeManagement.Application.Requets.Commands.RecipeIngredientCommands
             recipeIngredients.ingredients=ingredients;
             recipeIngredients.Quantity=request.Quantity;
             _context.RecipeIngredients.Add(recipeIngredients);
-            return await _context.SaveChangesAsync();
+             await _context.SaveChangesAsync();
+            RecipeAuthor recipeAuthor = new RecipeAuthor
+            {
+                Recipe = recipe,
+                User = _context.Users.FirstOrDefault(u => u.UserId == request.UserId) 
+            };
+
+            _context.RecipeAuthors.Add(recipeAuthor); // Add RecipeAuthor to the context
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return recipe.RecipeId;
 
         }
     }
 }
+
 
 

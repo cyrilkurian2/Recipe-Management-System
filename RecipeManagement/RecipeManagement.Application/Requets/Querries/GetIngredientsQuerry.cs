@@ -22,12 +22,12 @@ namespace RecipeManagement.Application.Requets.Querries
         }
         public RecipeManagementContext Context { get; }
 
-        public Task<IngredientDTO> Handle(GetIngredientsQuerry request, CancellationToken cancellationToken)
+        public async Task<IngredientDTO> Handle(GetIngredientsQuerry request, CancellationToken cancellationToken)
         {
             IngredientDTO ingredientDTO=new IngredientDTO();
             Ingredients ingredients = Context.Ingredients.Where(x=>x.IngredientsId==request.IngredientID).First();
             ingredientDTO.IngredientName = ingredients.IngredientsName;
-            throw new NotImplementedException();
+            return await Task.FromResult(ingredientDTO);
         }
     }
 }

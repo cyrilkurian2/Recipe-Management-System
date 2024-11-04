@@ -20,6 +20,9 @@ namespace RecipeManagement.Application.Requets.Commands.RecipeCommands
         public string Duration { get; set; }
         //public Category category { get; set; }
         public int CategoryId {  get; set; }
+        public bool IsComplete { get; set; } = false;
+
+        public int UserId { get; set; }
 
     }
 
@@ -42,10 +45,20 @@ namespace RecipeManagement.Application.Requets.Commands.RecipeCommands
                 Category category = _context.Category.Where(a => a.CategoryId == request.CategoryId).First();
             
             recipe.category=category;
+            recipe.IsComplete=request.IsComplete;
             _context.Recipes.Add(recipe);
-            return await _context.SaveChangesAsync();
+             await _context.SaveChangesAsync();
 
+            RecipeAuthor recipeAuthor = new RecipeAuthor
+            {
+                Recipe = recipe,
+                User = _context.Users.FirstOrDefault(u => u.UserId == request.UserId)  // Set the User from UserId
+            };
 
+            _context.RecipeAuthors.Add(recipeAuthor); // Add RecipeAuthor to the context
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return recipe.RecipeId;
 
         }
 

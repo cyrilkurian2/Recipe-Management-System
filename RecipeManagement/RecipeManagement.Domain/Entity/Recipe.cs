@@ -14,7 +14,7 @@ namespace RecipeManagement.Domain.Entity
 
         public string Duration { get; set; }
         public Category category { get; set; }  
-        public bool IsComplete {  get; set; }
+        public bool IsComplete {  get; set; }=false;
 
 
     }
