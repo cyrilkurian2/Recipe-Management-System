@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RecipeManagement.Application.DTO;
+using RecipeManagement.Application.Requests.Commands.RecipeCommands;
 using RecipeManagement.Application.Requests.Queries;
 using RecipeManagement.Application.Requets.Commands.CategoryCommands;
 using RecipeManagement.Application.Requets.Commands.RecipeCommands;
@@ -23,5 +25,24 @@ namespace RecipeManagement.API.Controllers
         {
             return await _mediator.Send(command);
         }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateRecipe(int id, [FromBody] UpdateRecipeCommand command)
+        {
+            // Ensure the command uses the correct RecipeId from the route
+            command.SetRequestId(id);
+
+
+            var result = await _mediator.Send(command);
+            if (result)
+            {
+                return NoContent(); // 204 No Content
+            }
+            else
+            {
+                return NotFound(); // 404 Not Found
+            }
+        }
+
     }
 }
+
