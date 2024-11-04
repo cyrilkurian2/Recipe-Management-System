@@ -89,23 +89,31 @@ namespace RecipeManagement.Application.Requests.Queries
         {
             var recipes = await _context.Recipes
                 .Include(r => r.category)
-                .Where(r => r.RecipeTitle.Contains(request.RecipeTitle))
+                .Where(r => r.RecipeTitle.Contains(request.RecipeTitle) && r.IsComplete)
+                .GroupJoin(
+                    _context.Favourites,
+                    recipe => recipe.RecipeId,
+                    favourite => favourite.recipe.RecipeId,
+                    (recipe, favourites) => new { Recipe = recipe, FavouritesCount = favourites.Count() }
+                )
                 .Select(r => new RecipeDTO
                 {
-                    RecipeId = r.RecipeId,
-                    RecipeTitle = r.RecipeTitle,
-                    RecipeDescription = r.RecipeDescription,
-                    Duration = r.Duration,
-                    IsComplete = r.IsComplete,
+                    RecipeId = r.Recipe.RecipeId,
+                    RecipeTitle = r.Recipe.RecipeTitle,
+                    RecipeDescription = r.Recipe.RecipeDescription,
+                    Duration = r.Recipe.Duration,
+                    IsComplete = r.Recipe.IsComplete,
                     categoryDTO = new CategoryDTO
                     {
-                        CategoryId = r.category.CategoryId,
-                        CategoryName = r.category.CategoryName
-                    }
+                        CategoryId = r.Recipe.category.CategoryId,
+                        CategoryName = r.Recipe.category.CategoryName
+                    },
+                    FavouritesCount = r.FavouritesCount 
                 })
                 .ToListAsync(cancellationToken);
 
             return recipes;
         }
+
     }
 }

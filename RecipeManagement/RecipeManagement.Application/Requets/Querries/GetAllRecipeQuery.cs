@@ -30,9 +30,10 @@ namespace RecipeManagement.Application.Requets.Querries
                 .GroupJoin(
                     _context.Favourites,
                     recipe => recipe.RecipeId,
-                    favourite => favourite.RecipeId,
+                    favourite => favourite.recipe.RecipeId,
                     (recipe, favourites) => new { Recipe = recipe, FavouritesCount = favourites.Count() }
                 )
+                .Where(r => r.Recipe.IsComplete)
                 .OrderByDescending(r => r.FavouritesCount)
                 .Select(r => new RecipeDTO
                 {
@@ -46,7 +47,7 @@ namespace RecipeManagement.Application.Requets.Querries
                         CategoryId = r.Recipe.category.CategoryId,
                         CategoryName = r.Recipe.category.CategoryName
                     },
-                    FavouritesCount = r.FavouritesCount // Optional: Include in DTO if needed
+                    FavouritesCount = r.FavouritesCount 
                 })
                 .ToListAsync(cancellationToken);
 

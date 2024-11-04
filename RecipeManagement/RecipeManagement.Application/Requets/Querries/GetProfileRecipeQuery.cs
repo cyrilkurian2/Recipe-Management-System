@@ -1,35 +1,37 @@
-﻿using MediatR;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using MediatR;
 using RecipeManagement.Application.DTO;
 using RecipeManagement.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 
-namespace RecipeManagement.Application.Requests.Queries
+namespace RecipeManagement.Application.Requets.Querries
 {
-    public class SearchByCategoryQuery : IRequest<List<RecipeDTO>>
+    public class GetProfileRecipeQuery : IRequest<List<RecipeDTO>>
     {
-        public string CategoryName { get; set; }
-
-        public SearchByCategoryQuery(string categoryName)
-        {
-            CategoryName = categoryName;
-        }
+        public int UserId { get; set; }
     }
 
-    public class SearchByCategoryQueryHandler : IRequestHandler<SearchByCategoryQuery, List<RecipeDTO>>
+ 
+
+    public class GetProfileRecipeQueryHandler : IRequestHandler<GetProfileRecipeQuery, List<RecipeDTO>>
     {
         private readonly RecipeManagementContext _context;
 
-        public SearchByCategoryQueryHandler(RecipeManagementContext context)
+        public GetProfileRecipeQueryHandler(RecipeManagementContext context)
         {
             _context = context;
         }
 
-        public async Task<List<RecipeDTO>> Handle(SearchByCategoryQuery request, CancellationToken cancellationToken)
+        public async Task<List<RecipeDTO>> Handle(GetProfileRecipeQuery request, CancellationToken cancellationToken)
         {
             var recipes = await _context.Recipes
                 .Include(r => r.category)
-                .Where(r => r.category.CategoryName == request.CategoryName && r.IsComplete)
-                .Select(recipe => new RecipeDTO
+                .Where(x => x.UserId == request.UserId)
+                .Where()
+                .Select(recipe => new RecipeDTO 
                 {
                     RecipeId = recipe.RecipeId,
                     RecipeTitle = recipe.RecipeTitle,
@@ -42,10 +44,9 @@ namespace RecipeManagement.Application.Requests.Queries
                         CategoryName = recipe.category.CategoryName
                     }
                 })
-                .ToListAsync(cancellationToken);
+            .ToListAsync(cancellationToken);
 
             return recipes;
         }
     }
 }
-

@@ -130,6 +130,58 @@
     ]
   },
   {
+    "ContainingType": "RecipeManagement.API.Controllers.AddRecipeIngredientController",
+    "Method": "AddRecipeIngredient",
+    "RelativePath": "api/AddRecipeIngredient",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "RecipeManagement.Application.Requets.Commands.RecipeIngredientCommands.AddRecipeIngredientCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RecipeManagement.API.Controllers.AddRemoveFavouriteController",
+    "Method": "AddRemoveFavourites",
+    "RelativePath": "api/AddRemoveFavourite",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "RecipeManagement.Application.Requets.Commands.FavouritesCommands.AddRemoveFavouriteCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.String",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "RecipeManagement.API.Controllers.AddUserController",
     "Method": "AddUser",
     "RelativePath": "api/AddUser",

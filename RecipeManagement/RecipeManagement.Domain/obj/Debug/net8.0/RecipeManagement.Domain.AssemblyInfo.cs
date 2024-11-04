@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RecipeManagement.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ba30bf4ddf2f4db5b8ee93990353d9b34f0ce8dd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ccdcea4603a5f4e817eaea13fcbdb994d380db2")]
 [assembly: System.Reflection.AssemblyProductAttribute("RecipeManagement.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RecipeManagement.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
