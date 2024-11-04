@@ -30,7 +30,7 @@ namespace RecipeManagement.Application.Requets.Querries
                 .GroupJoin(
                     _context.Favourites,
                     recipe => recipe.RecipeId,
-                    favourite => favourite.RecipeId,
+                    favourite => favourite.recipe.RecipeId,
                     (recipe, favourites) => new { Recipe = recipe, FavouritesCount = favourites.Count() }
                 )
                 .OrderByDescending(r => r.FavouritesCount)
