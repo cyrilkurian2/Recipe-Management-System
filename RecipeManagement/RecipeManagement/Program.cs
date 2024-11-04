@@ -12,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<RecipeManagementContext>(x =>
 {
-    x.UseSqlServer(@"Server=localhost,1431;Database=RecipeManagement;User Id=sa;Password=pass@123;TrustServerCertificate=true");
+    x.UseSqlServer(@"Server=localhost;Database=RecipeManagement;User Id=sa;Password=Pass@123;TrustServerCertificate=true");
 });
 builder.Services.AddScoped<RecipeManagementContext>();
 

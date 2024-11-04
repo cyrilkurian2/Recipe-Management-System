@@ -4,4 +4,8 @@ RecipeManagement.Application/obj
 RecipeManagement.Domain/bin
 RecipeManagement.Domain/obj
 RecipeManagement.Infrastructure/bin
+<<<<<<< HEAD
 RecipeManagement.Infrastructure/obj
+=======
+RecipeManagement.Infrastructure/obj
+>>>>>>> 9ccdcea4603a5f4e817eaea13fcbdb994d380db2

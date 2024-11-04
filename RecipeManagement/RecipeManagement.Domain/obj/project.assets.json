@@ -4102,19 +4102,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nohan.antony\\.nuget\\packages\\": {}
+    "C:\\Users\\cyril.kurian\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nohan.antony\\Documents\\Recipe-Management-System\\RecipeManagement\\RecipeManagement.Domain\\RecipeManagement.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\cyril.kurian\\Desktop\\Project\\Recipe-Management-System\\RecipeManagement\\RecipeManagement.Domain\\RecipeManagement.Domain.csproj",
       "projectName": "RecipeManagement.Domain",
-      "projectPath": "C:\\Users\\nohan.antony\\Documents\\Recipe-Management-System\\RecipeManagement\\RecipeManagement.Domain\\RecipeManagement.Domain.csproj",
-      "packagesPath": "C:\\Users\\nohan.antony\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nohan.antony\\Documents\\Recipe-Management-System\\RecipeManagement\\RecipeManagement.Domain\\obj\\",
+      "projectPath": "C:\\Users\\cyril.kurian\\Desktop\\Project\\Recipe-Management-System\\RecipeManagement\\RecipeManagement.Domain\\RecipeManagement.Domain.csproj",
+      "packagesPath": "C:\\Users\\cyril.kurian\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\cyril.kurian\\Desktop\\Project\\Recipe-Management-System\\RecipeManagement\\RecipeManagement.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\nohan.antony\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\cyril.kurian\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4122,6 +4122,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4180,7 +4181,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
