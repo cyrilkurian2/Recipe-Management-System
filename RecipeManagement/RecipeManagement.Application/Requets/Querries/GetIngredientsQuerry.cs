@@ -26,7 +26,6 @@ namespace RecipeManagement.Application.Requets.Querries
         {
             IngredientDTO ingredientDTO=new IngredientDTO();
             Ingredients ingredients = Context.Ingredients.Where(x=>x.IngredientsId==request.IngredientID).First();
-            ingredientDTO.IngredientID = ingredients.IngredientsId;
             ingredientDTO.IngredientName = ingredients.IngredientsName;
             throw new NotImplementedException();
         }
