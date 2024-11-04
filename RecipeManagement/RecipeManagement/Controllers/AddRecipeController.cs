@@ -23,11 +23,5 @@ namespace RecipeManagement.API.Controllers
         {
             return await _mediator.Send(command);
         }
-        [HttpGet]
-
-        public async Task<RecipeDTO> Get(int recipeId)
-        {
-            return await _mediator.Send(new GetRecipeQuerry { RecipeId = recipeId });
-        }
     }
 }

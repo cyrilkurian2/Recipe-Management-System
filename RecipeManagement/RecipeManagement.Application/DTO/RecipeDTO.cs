@@ -18,6 +18,7 @@ namespace RecipeManagement.Application.DTO
 
         public bool IsComplete { get; set; }
 
+        public int FavouritesCount { get; set; }
 
     }
 }
