@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace RecipeManagement.Application.DTO
 {
-    public class IngredientDTO
+    internal class FavouritesDTO
     {
-        public string IngredientName { get; set; }
     }
 }

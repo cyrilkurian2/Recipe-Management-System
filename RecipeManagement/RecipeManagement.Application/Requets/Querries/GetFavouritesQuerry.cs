@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RecipeManagement.Application.DTO
+namespace RecipeManagement.Application.Requets.Querries
 {
-    public class IngredientDTO
+    internal class GetFavouritesQuerry
     {
-        public string IngredientName { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Azure.Core;
 using MediatR;
+using RecipeManagement.Application.DTO;
 using RecipeManagement.Domain.Entity;
 using RecipeManagement.Infrastructure.Data;
 using System;
@@ -18,7 +19,6 @@ namespace RecipeManagement.Application.Requets.Commands.RecipeCommands
 
         public string Duration { get; set; }
         //public Category category { get; set; }
-
         public int CategoryId {  get; set; }
 
     }
@@ -37,8 +37,10 @@ namespace RecipeManagement.Application.Requets.Commands.RecipeCommands
             recipe.RecipeTitle=request.RecipeTitle;
             recipe.RecipeDescription=request.RecipeDescription;
             recipe.Duration=request.Duration;
+
+
+                Category category = _context.Category.Where(a => a.CategoryId == request.CategoryId).First();
             
-            Category category = _context.Category.Where(a => a.CategoryId == request.CategoryId).First();
             recipe.category=category;
             _context.Recipes.Add(recipe);
             return await _context.SaveChangesAsync();
