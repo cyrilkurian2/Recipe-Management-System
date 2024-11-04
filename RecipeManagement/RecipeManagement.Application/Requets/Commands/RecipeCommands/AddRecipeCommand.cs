@@ -20,6 +20,7 @@ namespace RecipeManagement.Application.Requets.Commands.RecipeCommands
         public string Duration { get; set; }
         //public Category category { get; set; }
         public int CategoryId {  get; set; }
+        public bool IsComplete { get; set; } = false;
 
     }
 
@@ -42,6 +43,7 @@ namespace RecipeManagement.Application.Requets.Commands.RecipeCommands
                 Category category = _context.Category.Where(a => a.CategoryId == request.CategoryId).First();
             
             recipe.category=category;
+            recipe.IsComplete=request.IsComplete;
             _context.Recipes.Add(recipe);
             return await _context.SaveChangesAsync();
 
