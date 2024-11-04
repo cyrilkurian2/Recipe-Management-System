@@ -1,1 +1,7 @@
 .vs
+RecipeManagement.Application/bin
+RecipeManagement.Application/obj
+RecipeManagement.Domain/bin
+RecipeManagement.Domain/obj
+RecipeManagement.Infrastructure/bin
+RecipeManagement.Infrastructure/ob
