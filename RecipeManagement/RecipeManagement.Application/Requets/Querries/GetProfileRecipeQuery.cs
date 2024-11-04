@@ -25,28 +25,28 @@ namespace RecipeManagement.Application.Requets.Querries
             _context = context;
         }
 
-        public async Task<List<RecipeDTO>> Handle(GetProfileRecipeQuery request, CancellationToken cancellationToken)
-        {
-            var recipes = await _context.Recipes
-                .Include(r => r.category)
-                .Where(x => x.UserId == request.UserId)
-                .Where()
-                .Select(recipe => new RecipeDTO 
-                {
-                    RecipeId = recipe.RecipeId,
-                    RecipeTitle = recipe.RecipeTitle,
-                    RecipeDescription = recipe.RecipeDescription,
-                    Duration = recipe.Duration,
-                    IsComplete = recipe.IsComplete,
-                    categoryDTO = new CategoryDTO
-                    {
-                        CategoryId = recipe.category.CategoryId,
-                        CategoryName = recipe.category.CategoryName
-                    }
-                })
-            .ToListAsync(cancellationToken);
+        //public async Task<List<RecipeDTO>> Handle(GetProfileRecipeQuery request, CancellationToken cancellationToken)
+        //{
+        //    var recipes = await _context.Recipes
+        //        .Include(r => r.category)
+        //        .Where(x => x.UserId == request.UserId)
+        //        //.Where()
+        //        .Select(recipe => new RecipeDTO 
+        //        {
+        //            RecipeId = recipe.RecipeId,
+        //            RecipeTitle = recipe.RecipeTitle,
+        //            RecipeDescription = recipe.RecipeDescription,
+        //            Duration = recipe.Duration,
+        //            IsComplete = recipe.IsComplete,
+        //            categoryDTO = new CategoryDTO
+        //            {
+        //                CategoryId = recipe.category.CategoryId,
+        //                CategoryName = recipe.category.CategoryName 
+        //            }
+        //        })
+        //    .ToListAsync(cancellationToken);
 
-            return recipes;
-        }
+        //    return recipes;
+        //}
     }
 }
