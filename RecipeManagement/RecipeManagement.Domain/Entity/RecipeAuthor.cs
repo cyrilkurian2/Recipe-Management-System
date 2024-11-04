@@ -10,7 +10,7 @@ namespace RecipeManagement.Domain.Entity
     {
         public int RecipeAuthorId { get; set; }
         
-        public Recipe recipe { get; set; }
-        public User user { get; set; }
+        public Recipe Recipe { get; set; }
+        public User User { get; set; }
     }
 }

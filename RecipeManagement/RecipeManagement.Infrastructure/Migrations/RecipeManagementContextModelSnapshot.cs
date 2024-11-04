@@ -111,6 +111,29 @@ namespace RecipeManagement.Infrastructure.Migrations
                     b.ToTable("Recipes");
                 });
 
+            modelBuilder.Entity("RecipeManagement.Domain.Entity.RecipeAuthor", b =>
+                {
+                    b.Property<int>("RecipeAuthorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecipeAuthorId"));
+
+                    b.Property<int>("RecipeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RecipeAuthorId");
+
+                    b.HasIndex("RecipeId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RecipeAuthors");
+                });
+
             modelBuilder.Entity("RecipeManagement.Domain.Entity.RecipeIngredients", b =>
                 {
                     b.Property<int>("RecipeIngredientsId")
@@ -191,6 +214,25 @@ namespace RecipeManagement.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("category");
+                });
+
+            modelBuilder.Entity("RecipeManagement.Domain.Entity.RecipeAuthor", b =>
+                {
+                    b.HasOne("RecipeManagement.Domain.Entity.Recipe", "Recipe")
+                        .WithMany()
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RecipeManagement.Domain.Entity.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Recipe");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("RecipeManagement.Domain.Entity.RecipeIngredients", b =>

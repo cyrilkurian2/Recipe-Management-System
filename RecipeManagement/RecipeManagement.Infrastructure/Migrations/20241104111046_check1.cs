@@ -101,6 +101,32 @@ namespace RecipeManagement.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RecipeAuthors",
+                columns: table => new
+                {
+                    RecipeAuthorId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RecipeId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RecipeAuthors", x => x.RecipeAuthorId);
+                    table.ForeignKey(
+                        name: "FK_RecipeAuthors_Recipes_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipes",
+                        principalColumn: "RecipeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RecipeAuthors_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RecipeIngredients",
                 columns: table => new
                 {
@@ -138,6 +164,16 @@ namespace RecipeManagement.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RecipeAuthors_RecipeId",
+                table: "RecipeAuthors",
+                column: "RecipeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RecipeAuthors_UserId",
+                table: "RecipeAuthors",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RecipeIngredients_IngredientsId",
                 table: "RecipeIngredients",
                 column: "IngredientsId");
@@ -158,6 +194,9 @@ namespace RecipeManagement.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Favourites");
+
+            migrationBuilder.DropTable(
+                name: "RecipeAuthors");
 
             migrationBuilder.DropTable(
                 name: "RecipeIngredients");

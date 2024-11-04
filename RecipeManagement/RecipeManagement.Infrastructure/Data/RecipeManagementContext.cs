@@ -15,7 +15,7 @@ namespace RecipeManagement.Infrastructure.Data
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<Ingredients> Ingredients { get; set; }
         public DbSet<RecipeIngredients> RecipeIngredients { get; set; }
-
+        public DbSet<RecipeAuthor> RecipeAuthors { get; set; }
         public DbSet<Favourites> Favourites { get; set; }
 
         public DbSet<Category> Category { get; set; }
