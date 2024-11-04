@@ -27,24 +27,32 @@ namespace RecipeManagement.Application.Requests.Queries
         public async Task<List<RecipeDTO>> Handle(SearchByCategoryQuery request, CancellationToken cancellationToken)
         {
             var recipes = await _context.Recipes
-                .Include(r => r.category)
-                .Where(r => r.category.CategoryName == request.CategoryName)
-                .Select(recipe => new RecipeDTO
+            .Include(r => r.category)
+            .Where(r => r.category.CategoryName == request.CategoryName && r.IsComplete)
+            .GroupJoin(
+                _context.Favourites,
+                recipe => recipe.RecipeId,
+                favourite => favourite.recipe.RecipeId,
+                (recipe, favourites) => new { Recipe = recipe, FavouritesCount = favourites.Count() }
+            )
+            .Select(r => new RecipeDTO
+            {
+                RecipeId = r.Recipe.RecipeId,
+                RecipeTitle = r.Recipe.RecipeTitle,
+                RecipeDescription = r.Recipe.RecipeDescription,
+                Duration = r.Recipe.Duration,
+                IsComplete = r.Recipe.IsComplete,
+                categoryDTO = new CategoryDTO
                 {
-                    RecipeId = recipe.RecipeId,
-                    RecipeTitle = recipe.RecipeTitle,
-                    RecipeDescription = recipe.RecipeDescription,
-                    Duration = recipe.Duration,
-                    IsComplete = recipe.IsComplete,
-                    categoryDTO = new CategoryDTO
-                    {
-                        CategoryId = recipe.category.CategoryId,
-                        CategoryName = recipe.category.CategoryName
-                    }
-                })
-                .ToListAsync(cancellationToken);
+                    CategoryId = r.Recipe.category.CategoryId,
+                    CategoryName = r.Recipe.category.CategoryName
+                },
+                FavouritesCount = r.FavouritesCount // Adding favorites count to the DTO
+            })
+            .ToListAsync(cancellationToken);
 
-            return recipes;
+             return recipes;
+
         }
     }
 }

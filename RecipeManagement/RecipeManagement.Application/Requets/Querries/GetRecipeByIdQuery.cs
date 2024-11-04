@@ -29,8 +29,14 @@ namespace RecipeManagement.Application.Requests.Queries
         public async Task<RecipeDTO> Handle(GetRecipeByIdQuery request, CancellationToken cancellationToken)
         {
             var recipe = await _context.Recipes
-                .Include(r => r.category)
-                .FirstOrDefaultAsync(r => r.RecipeId == request.RecipeId, cancellationToken);
+            .Include(r => r.category)
+            .Where(r => r.RecipeId == request.RecipeId)
+            .Select(r => new
+            {
+                Recipe = r,
+                FavouritesCount = _context.Favourites.Count(f => f.recipe.RecipeId == r.RecipeId)
+            })
+            .FirstOrDefaultAsync(cancellationToken);
 
             if (recipe == null)
             {
@@ -39,17 +45,19 @@ namespace RecipeManagement.Application.Requests.Queries
 
             return new RecipeDTO
             {
-                RecipeId = recipe.RecipeId,
-                RecipeTitle = recipe.RecipeTitle,
-                RecipeDescription = recipe.RecipeDescription,
-                Duration = recipe.Duration,
-                IsComplete = recipe.IsComplete,
+                RecipeId = recipe.Recipe.RecipeId,
+                RecipeTitle = recipe.Recipe.RecipeTitle,
+                RecipeDescription = recipe.Recipe.RecipeDescription,
+                Duration = recipe.Recipe.Duration,
+                IsComplete = recipe.Recipe.IsComplete,
                 categoryDTO = new CategoryDTO
                 {
-                    CategoryId = recipe.category.CategoryId,
-                    CategoryName = recipe.category.CategoryName
-                }
+                    CategoryId = recipe.Recipe.category.CategoryId,
+                    CategoryName = recipe.Recipe.category.CategoryName
+                },
+                FavouritesCount = recipe.FavouritesCount // Adding favorites count to the DTO
             };
+
         }
     }
 }
