@@ -35,12 +35,12 @@ export class RecipeService {
   }
 
   addIngredient(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/ingredient`, data, { headers: this.getHeaders() });
+    return this.http.post(`${this.baseUrl}/api/AddIngredient`, data, { headers: this.getHeaders() });
   }
 
   // Recipe APIs
   addRecipe(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/addRecipe`, data, { headers: this.getHeaders() });
+    return this.http.post(`${this.baseUrl}/api/AddRecipe`, data, { headers: this.getHeaders() });
   }
 
   updateRecipe(recipeId: string, data: any): Observable<any> {
@@ -52,7 +52,7 @@ export class RecipeService {
   }
 
   viewAllRecipes(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/viewAllRecipe`, { headers: this.getHeaders() });
+    return this.http.get(`${this.baseUrl}/api/ViewAllRecipe`, { headers: this.getHeaders() });
   }
 
   viewRecipeById(recipeId: string): Observable<any> {
@@ -92,12 +92,12 @@ export class RecipeService {
   }
 
 
-  getAllIngredients(): Observable<{ ingredientName: string }[]> {
-    return this.http.get<{ ingredientName: string }[]>(`${this.baseUrl}/GetAllIngredients`);
+  getAllIngredients(): Observable<{ ingredientid: number; ingredientsName: string }[]> {
+    return this.http.get<{ ingredientid: number; ingredientsName: string }[]>(`${this.baseUrl}/api/GetAllIngredients`);
   }
 
-  addRecipeIngredient(ingredientData: { recipeId: number; ingredientName: string; quantity: string }): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/AddRecipeIngredient`, ingredientData);
+  addRecipeIngredient(ingredientData: { recipeId: number; ingredientid:number; quantity: string }): Observable<any> {
+    return this.http.post<any>(`${this.baseUrl}/api/AddRecipeIngredient`, ingredientData);
   }
 
 }
