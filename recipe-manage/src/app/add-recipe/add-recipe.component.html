@@ -7,123 +7,64 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
-<div class="container my-5 " style="width: 60rem;">
-  <h2 class="text-center mb-4">Add a New Recipe</h2>
-  <form id="addRecipeForm">
-    
-    <!-- Recipe Title -->
-    <div class="mb-3">
-      <label for="recipeTitle" class="form-label">Recipe Title</label>
-      <input type="text" class="form-control" id="recipeTitle" required>
-    </div>
-
-    <!-- Duration -->
-    <div class="mb-3">
-      <label for="duration" class="form-label">Duration (minutes)</label>
-      <input type="number" class="form-control" id="duration" required>
-    </div>
-
-    <!-- Description -->
-    <div class="mb-3">
-      <label for="description" class="form-label">Small Description</label>
-      <textarea class="form-control" id="description" rows="3" required></textarea>
-    </div>
-
-    <!-- Ingredients -->
-    <div class="mb-3">
-      <label for="ingredientSearch" class="form-label">Ingredients</label>
-      <div class="input-group mb-2">
-        <input type="text" class="form-control" id="ingredientSearch" placeholder="Search for an ingredient" autocomplete="off">
-        <button class="btn btn-outline-secondary" type="button" onclick="addIngredient()">Add</button>
+  <div class="container my-5" style="width: 60rem;">
+    <h2 class="text-center mb-4">Add a New Recipe</h2>
+    <form (ngSubmit)="onSubmit()" #addRecipeForm="ngForm">
+  
+      <!-- Recipe Title -->
+      <div class="mb-3">
+        <label for="recipeTitle" class="form-label">Recipe Title</label>
+        <input type="text" class="form-control" id="recipeTitle" [(ngModel)]="recipeData.title" name="title" required>
       </div>
-      <div id="ingredientSuggestions" class="list-group" style="max-height: 150px; overflow-y: auto;"></div>
-      <ul class="list-group mt-2" id="selectedIngredients"></ul>
-    </div>
-
-    <!-- Steps to Prepare -->
-    <div class="mb-3">
-      <label for="steps" class="form-label">Steps to Prepare</label>
-      <textarea class="form-control" id="steps" rows="5" required></textarea>
-    </div>
-
-    <!-- Image Upload -->
-    <div class="mb-3">
-      <label for="recipeImage" class="form-label">Upload Image</label>
-      <input class="form-control" type="file" id="recipeImage" accept="image/*">
-    </div>
-
-    <!-- Buttons -->
-    <div class="d-flex justify-content-end">
-      <button type="button" class="btn btn-secondary me-2" onclick="saveAsDraft()">Save as Draft</button>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-
-  </form>
-</div>
-
-<script>
-  // Mock ingredients database
-  const availableIngredients = ["Flour", "Sugar", "Salt", "Butter", "Eggs", "Milk", "Baking Powder"];
-
-  // Element references
-  const ingredientSearch = document.getElementById('ingredientSearch');
-  const ingredientSuggestions = document.getElementById('ingredientSuggestions');
-  const selectedIngredients = document.getElementById('selectedIngredients');
-
-  // Display suggestions based on search input
-  ingredientSearch.addEventListener('input', function() {
-    const query = this.value.toLowerCase();
-    ingredientSuggestions.innerHTML = '';
-
-    if (query) {
-      availableIngredients
-        .filter(ingredient => ingredient.toLowerCase().includes(query))
-        .forEach(ingredient => {
-          const suggestionItem = document.createElement('button');
-          suggestionItem.classList.add('list-group-item', 'list-group-item-action');
-          suggestionItem.textContent = ingredient;
-          suggestionItem.onclick = () => selectIngredient(ingredient);
-          ingredientSuggestions.appendChild(suggestionItem);
-        });
-    }
-  });
-
-  // Add selected ingredient with quantity
-  function selectIngredient(ingredient) {
-    const quantity = prompt(`Enter quantity for ${ingredient}:`, "1 unit");
-    if (quantity) {
-      const listItem = document.createElement('li');
-      listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
-      listItem.textContent = `${ingredient} - ${quantity}`;
-      
-      // Delete button for each ingredient
-      const deleteBtn = document.createElement('button');
-      deleteBtn.classList.add('btn', 'btn-sm', 'btn-danger');
-      deleteBtn.textContent = 'Delete';
-      deleteBtn.onclick = () => listItem.remove();
-      listItem.appendChild(deleteBtn);
-
-      selectedIngredients.appendChild(listItem);
-    }
-    ingredientSearch.value = '';
-    ingredientSuggestions.innerHTML = '';
-  }
-
-  // Save as draft functionality
-  function saveAsDraft() {
-    alert('Recipe saved as draft!');
-    // Add any draft-saving logic here
-  }
-
-  // Form submission
-  document.getElementById('addRecipeForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    alert('Recipe submitted successfully!');
-    // Add recipe submission logic here
-  });
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+      <!-- Duration -->
+      <div class="mb-3">
+        <label for="duration" class="form-label">Duration (minutes)</label>
+        <input type="number" class="form-control" id="duration" [(ngModel)]="recipeData.duration" name="duration" required>
+      </div>
+  
+      <!-- Description -->
+      <div class="mb-3">
+        <label for="description" class="form-label">Small Description</label>
+        <textarea class="form-control" id="description" [(ngModel)]="recipeData.description" name="description" rows="3" required></textarea>
+      </div>
+  
+      <!-- Ingredients -->
+      <div class="mb-3">
+        <label for="ingredientSearch" class="form-label">Ingredients</label>
+        <div class="input-group mb-2">
+          <input type="text" class="form-control" id="ingredientSearch" placeholder="Search for an ingredient" 
+                 [(ngModel)]="ingredientSearchQuery" (input)="onIngredientSearch(ingredientSearchQuery)" autocomplete="off">
+          <button class="btn btn-outline-secondary" type="button" (click)="selectIngredient(ingredientSearchQuery)">Add</button>
+        </div>
+        <div *ngIf="ingredientSuggestions.length > 0" class="list-group" style="max-height: 150px; overflow-y: auto;">
+          <button *ngFor="let suggestion of ingredientSuggestions" type="button" class="list-group-item list-group-item-action"
+                  (click)="selectIngredient(suggestion)">
+            {{ suggestion }}
+          </button>
+        </div>
+        <ul class="list-group mt-2">
+          <li *ngFor="let ingredient of selectedIngredients; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
+            {{ ingredient.ingredientName }} - {{ ingredient.quantity }}
+            <button class="btn btn-sm btn-danger" (click)="removeIngredient(i)">Delete</button>
+          </li>
+        </ul>
+      </div>
+  
+      <!-- Steps to Prepare -->
+      <!-- <div class="mb-3">
+        <label for="steps" class="form-label">Steps to Prepare</label>
+        <textarea class="form-control" id="steps" [(ngModel)]="recipeData.steps" name="steps" rows="5" required></textarea>
+      </div> -->
+  
+      <!-- Buttons -->
+      <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-secondary me-2" (click)="saveAsDraft()">Save as Draft</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+  
+    </form>
+  </div>
+  
 </body>
 </html>
