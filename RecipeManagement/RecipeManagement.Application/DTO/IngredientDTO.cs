@@ -8,6 +8,7 @@ namespace RecipeManagement.Application.DTO
 {
     public class IngredientDTO
     {
+        public int IngredientID { get; set; }
         public string IngredientName { get; set; }
     }
 }
