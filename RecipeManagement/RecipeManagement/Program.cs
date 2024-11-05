@@ -10,6 +10,20 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "_myAllowSpecificOrigins",
+                      builder =>
+                      {
+                          builder.AllowAnyOrigin()
+                                  .AllowAnyMethod()
+                                  .AllowAnyHeader();
+                      });
+});
+
+
 builder.Services.AddDbContext<RecipeManagementContext>(x =>
 {
     x.UseSqlServer(@"Server=localhost;Database=RecipeManagement;User Id=sa;Password=Pass@123;TrustServerCertificate=true");
