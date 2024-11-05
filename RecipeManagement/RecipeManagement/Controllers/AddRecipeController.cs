@@ -28,18 +28,18 @@ namespace RecipeManagement.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateRecipe(int id, [FromBody] UpdateRecipeCommand command)
         {
-            // Ensure the command uses the correct RecipeId from the route
+             
             command.SetRequestId(id);
 
 
             var result = await _mediator.Send(command);
             if (result)
             {
-                return NoContent(); // 204 No Content
+                return NoContent(); 
             }
             else
             {
-                return NotFound(); // 404 Not Found
+                return NotFound(); 
             }
         }
 
