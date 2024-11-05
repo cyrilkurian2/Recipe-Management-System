@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +32,15 @@ namespace RecipeManagement.Application.Requets.Querries
                     favourite => favourite.recipe.RecipeId,
                     (recipe, favourites) => new { Recipe = recipe, FavouritesCount = favourites.Count() }
                 )
+                .Select(r => new
+                {
+                    r.Recipe,
+                    r.FavouritesCount,
+                    Author = _context.RecipeAuthors
+                        .Where(ra => ra.Recipe.RecipeId == r.Recipe.RecipeId)
+                        .Select(ra => ra.User)
+                        .FirstOrDefault()
+                })
                 .Where(r => r.Recipe.IsComplete)
                 .OrderByDescending(r => r.FavouritesCount)
                 .Select(r => new RecipeDTO
@@ -47,14 +55,17 @@ namespace RecipeManagement.Application.Requets.Querries
                         CategoryId = r.Recipe.category.CategoryId,
                         CategoryName = r.Recipe.category.CategoryName
                     },
-                    FavouritesCount = r.FavouritesCount 
+                    FavouritesCount = r.FavouritesCount,
+                    User = r.Author == null ? null : new UserDTO
+                    {
+                        UserId = r.Author.UserId,
+                        Name = r.Author.Name,
+                        Email = r.Author.Email
+                    }
                 })
                 .ToListAsync(cancellationToken);
 
             return recipes;
         }
     }
-
-
-
 }
