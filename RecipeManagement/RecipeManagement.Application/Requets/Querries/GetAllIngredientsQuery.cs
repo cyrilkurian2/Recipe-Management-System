@@ -29,7 +29,7 @@ namespace RecipeManagement.Application.Requets.Querries
                 .Select(x => new IngredientDTO
                 {
                     IngredientID=x.IngredientsId,
-                    IngredientName = x.IngredientsName
+                    IngredientsName = x.IngredientsName
                 })
                 .ToListAsync(cancellationToken);
 
