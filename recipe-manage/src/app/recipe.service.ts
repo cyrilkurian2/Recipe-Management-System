@@ -79,8 +79,16 @@ export class RecipeService {
 
   // User APIs
   addUser(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/addUser`, data, { headers: this.getHeaders() });
+    return this.http.post(`${this.baseUrl}/api/AddUser`, data, { headers: this.getHeaders() });
   }
+  //login
+  // login(data: any): Observable<any> {
+  //   return this.http.post(`${this.baseUrl}/api/AddUser/ValidateUser`, data, { headers: this.getHeaders() });
+  // }
+  login(data: { email: string; password: string }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/AddUser/ValidateUser`, data, { headers: this.getHeaders() }); 
+  }
+
 
   getUser(): Observable<any> {
     return this.http.get(`${this.baseUrl}/addUser`, { headers: this.getHeaders() });

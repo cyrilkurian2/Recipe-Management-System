@@ -2,23 +2,24 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { RecipeService } from '../../recipe.service'; // Adjust the import according to your service's path
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
   userForm: FormGroup;
-  is_user = true;  // Temporary mock variable to simulate user authentication
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private userService: RecipeService) {
     this.userForm = this.fb.group<IuseForm>({
       email: new FormControl(
         '',
-        [Validators.required, Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/)]
+        [Validators.required, ]
       ),
       password: new FormControl('', Validators.required)
     });
@@ -26,14 +27,20 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.userForm.valid) {
-      console.log(this.userForm.value);
-
-      // Check if is_user is true, then redirect
-      if (this.is_user) {
-        this.router.navigate(['/home-page']);
-      } else {
-        alert('Invalid login credentials'); // Replace this with appropriate feedback
-      }
+      const { email, password } = this.userForm.value;
+      console.log('hi');
+      // Call the login method from the UserService
+      this.userService.login({ email, password }).subscribe({
+        next: (response) => {
+          const userId = response.userId; // Assuming the API returns userId on successful login
+          console.log('User logged in successfully:', userId);
+          this.router.navigate(['/home-page']); // Redirect on successful login
+        },
+        error: (error) => {
+          console.error('Error during login:', error);
+          alert('Invalid login credentials'); // Display error message for invalid login
+        }
+      });
     }
   }
 }
