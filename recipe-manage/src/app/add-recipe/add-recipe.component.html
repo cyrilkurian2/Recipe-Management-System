@@ -14,19 +14,19 @@
       <!-- Recipe Title -->
       <div class="mb-3">
         <label for="recipeTitle" class="form-label">Recipe Title</label>
-        <input type="text" class="form-control" id="recipeTitle" [(ngModel)]="recipeData.title" name="title" required>
+        <input type="text" class="form-control" id="recipeTitle" [(ngModel)]="recipeData.RecipeTitle" name="title" required>
       </div>
   
       <!-- Duration -->
       <div class="mb-3">
         <label for="duration" class="form-label">Duration (minutes)</label>
-        <input type="number" class="form-control" id="duration" [(ngModel)]="recipeData.duration" name="duration" required>
+        <input type="text" class="form-control" id="duration" [(ngModel)]="recipeData.duration" name="duration" required>
       </div>
   
       <!-- Description -->
       <div class="mb-3">
         <label for="description" class="form-label">Small Description</label>
-        <textarea class="form-control" id="description" [(ngModel)]="recipeData.description" name="description" rows="3" required></textarea>
+        <textarea class="form-control" id="description" [(ngModel)]="recipeData.RecipeDescription" name="description" rows="3" required></textarea>
       </div>
   
       <!-- Ingredients -->
@@ -34,7 +34,7 @@
         <label for="ingredientSearch" class="form-label">Ingredients</label>
         <div class="input-group mb-2">
           <input type="text" class="form-control" id="ingredientSearch" placeholder="Search for an ingredient" 
-                 [(ngModel)]="ingredientSearchQuery" (input)="onIngredientSearch(ingredientSearchQuery)" autocomplete="off">
+                 [(ngModel)]="ingredientSearchQuery" (input)="onIngredientSearch(ingredientSearchQuery)" name="ingredientSearchQuery" autocomplete="off">
           <button class="btn btn-outline-secondary" type="button" (click)="selectIngredient(ingredientSearchQuery)">Add</button>
         </div>
         <div *ngIf="ingredientSuggestions.length > 0" class="list-group" style="max-height: 150px; overflow-y: auto;">
@@ -45,12 +45,13 @@
         </div>
         <ul class="list-group mt-2">
           <li *ngFor="let ingredient of selectedIngredients; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
-            {{ ingredient.ingredientName }} - {{ ingredient.quantity }}
+            {{ ingredient.ingredientsName }} - {{ ingredient.quantity }}
             <button class="btn btn-sm btn-danger" (click)="removeIngredient(i)">Delete</button>
           </li>
         </ul>
       </div>
-  
+      
+
       <!-- Steps to Prepare -->
       <!-- <div class="mb-3">
         <label for="steps" class="form-label">Steps to Prepare</label>
