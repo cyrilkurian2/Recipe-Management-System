@@ -33,17 +33,17 @@ namespace RecipeManagement.API.Controllers
             return await _mediator.Send(new GetUserQuerry { UserId = userId });
         }
 
-        [HttpGet("Email-Password/{email}")]
-        public async Task<ActionResult<LoginDTO>> GetPasswordByEmail(string email)
+        [HttpPost("ValidateUser")]
+        public async Task<ActionResult<int?>> ValidateUser([FromBody] ValidateUserQuery query)
         {
-            var result = await _mediator.Send(new GetPasswordUsingEmailQuery { Email = email });
+            var userId = await _mediator.Send(query);
 
-            if (result == null)
+            if (userId == null)
             {
-                return NotFound("User with the specified email was not found.");
+                return Unauthorized("Invalid email or password.");
             }
 
-            return Ok(result);
+            return Ok(userId);
         }
 
 
