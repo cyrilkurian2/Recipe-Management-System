@@ -20,7 +20,7 @@ export class AddRecipeComponent implements OnInit {
     duration: 0,
     description: '',
     // steps: '',
-    isCompleted: 0  // Initialize IsCompleted field
+    isCompleted: 0  
   };
 
   constructor(private recipeService: RecipeService) {}
@@ -29,7 +29,6 @@ export class AddRecipeComponent implements OnInit {
     this.loadAvailableIngredients();
   }
 
-  // Load ingredients from API and format as array of strings
   loadAvailableIngredients() {
     this.recipeService.getAllIngredients().subscribe({
       next: (response: { ingredientName: string }[]) => {
@@ -41,7 +40,6 @@ export class AddRecipeComponent implements OnInit {
     });
   }
 
-  // Filter ingredient suggestions based on search input
   onIngredientSearch(query: string) {
     if (query) {
       this.ingredientSuggestions = this.availableIngredients.filter(name =>
@@ -52,7 +50,6 @@ export class AddRecipeComponent implements OnInit {
     }
   }
 
-  // Select ingredient from suggestions or add a new one if not found
   selectIngredient(ingredientName: string) {
     if (!this.availableIngredients.includes(ingredientName)) {
       if (confirm(`"${ingredientName}" is not in the list. Would you like to add it as a new ingredient?`)) {
@@ -63,7 +60,6 @@ export class AddRecipeComponent implements OnInit {
     }
   }
 
-  // Add ingredient with quantity to selected ingredients list
   addIngredientToList(ingredientName: string) {
     const quantity = prompt(`Enter quantity for ${ingredientName}:`, "1 unit");
     if (quantity) {
@@ -73,7 +69,6 @@ export class AddRecipeComponent implements OnInit {
     this.ingredientSuggestions = [];
   }
 
-  // Call API to add a new ingredient
   addNewIngredient(ingredientName: string) {
     this.recipeService.addIngredient({ name: ingredientName }).subscribe({
       next: () => {
@@ -87,12 +82,10 @@ export class AddRecipeComponent implements OnInit {
     });
   }
 
-  // Remove an ingredient from the selected ingredients list
   removeIngredient(index: number) {
     this.selectedIngredients.splice(index, 1);
   }
 
-  // Save recipe as draft or submit as complete
   saveRecipe(isComplete: boolean) {
     this.recipeData.isCompleted = isComplete ? 1 : 0;
     this.recipeService.addRecipe(this.recipeData).subscribe({
@@ -107,7 +100,6 @@ export class AddRecipeComponent implements OnInit {
     });
   }
 
-  // Call API to add each selected ingredient to the recipe
   addIngredientsToRecipe(recipeId: number) {
     this.selectedIngredients.forEach(ingredient => {
       const ingredientData = {
@@ -126,12 +118,10 @@ export class AddRecipeComponent implements OnInit {
     });
   }
 
-  // Triggered on form submission
   onSubmit() {
     this.saveRecipe(true); // Save as completed recipe
   }
 
-  // Triggered on saving as draft
   saveAsDraft() {
     this.saveRecipe(false); // Save as draft
   }

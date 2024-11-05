@@ -1,4 +1,4 @@
-<div *ngIf="recipe" class="container m-5 d-flex justify-content-center">
+<!-- <div *ngIf="recipe" class="container m-5 d-flex justify-content-center">
     <div class="card" style="width: 60rem;">
       <div class="image-crop">
         <img [src]="recipe.imageUrl" class="card-img-top" alt="Recipe Image">
@@ -14,4 +14,35 @@
       </div>
     </div>
   </div>
+   -->
+
+
+
+   <div *ngIf="recipe; else loading" class="container m-5 d-flex justify-content-center">
+    <div class="card" style="width: 60rem;">
+      <div class="image-crop">
+        <img [src]="recipe.imageUrl" class="card-img-top" alt="Recipe Image">
+      </div>
+      <div class="card-body">
+        <h2 class="card-title text-center">{{ recipe.recipeTitle }}</h2>
+        <!-- <p><strong>Rating:</strong> {{ recipe.rating }} / 5</p> -->
+        <p><strong>Likes:</strong> {{ recipe.favouritesCount }}</p>
+        <p>Category: {{recipe.categoryDTO.categoryName}}</p>
+        <p>Duration: {{recipe.duration}}</p>
+        <p>Recipe Description: {{recipe.recipeDescription}}</p>
+
+
+        <!-- <h4 class="mt-4">Ingredients</h4>
+        <ul class="list-group list-group-flush">
+          <li *ngFor="let ingredient of recipe.ingredients" class="list-group-item">{{ ingredient. }}</li>
+        </ul> -->
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #loading>
+    <div class="container m-5 d-flex justify-content-center">
+      <p>Loading recipe...</p>
+    </div>
+  </ng-template>
   

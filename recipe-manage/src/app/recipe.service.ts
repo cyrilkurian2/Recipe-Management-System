@@ -56,7 +56,7 @@ export class RecipeService {
   }
 
   viewRecipeById(recipeId: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/viewAllRecipe/${recipeId}`, { headers: this.getHeaders() });
+    return this.http.get(`${this.baseUrl}/api/ViewAllRecipe/${recipeId}`, { headers: this.getHeaders() });
   }
 
   viewRecipeByCategory(categoryName: string): Observable<any> {
