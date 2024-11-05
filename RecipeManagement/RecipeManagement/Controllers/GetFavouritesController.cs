@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RecipeManagement.Application.DTO;
 using RecipeManagement.Application.Requests.Queries;
+using RecipeManagement.Application.Requets.Querries;
 
 namespace RecipeManagement.API.Controllers
 {
@@ -15,11 +16,15 @@ namespace RecipeManagement.API.Controllers
         {
             _mediator = mediator;
         }
-        [HttpGet]
-
-        public async Task<FavouritesDTO> Get(int userId)
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<FavouritesDTO>> Get(int userId)
         {
-            return await _mediator.Send(new GetFavouritesQuery { UserId = userId });
+            var result = await _mediator.Send(new GetFavouritesQuery(userId));
+            if (result == null)
+            {
+                return NotFound(); // Return a 404 if the user or favorites are not found
+            }
+            return Ok(result); // Return a 200 response with the result
         }
     }
 }

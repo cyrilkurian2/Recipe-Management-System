@@ -27,33 +27,46 @@ namespace RecipeManagement.Application.Requests.Queries
         public async Task<List<RecipeDTO>> Handle(SearchByCategoryQuery request, CancellationToken cancellationToken)
         {
             var recipes = await _context.Recipes
-            .Include(r => r.category)
-            .Where(r => r.category.CategoryName == request.CategoryName && r.IsComplete)
-            .GroupJoin(
-                _context.Favourites,
-                recipe => recipe.RecipeId,
-                favourite => favourite.recipe.RecipeId,
-                (recipe, favourites) => new { Recipe = recipe, FavouritesCount = favourites.Count() }
-            )
-            .Select(r => new RecipeDTO
-            {
-                RecipeId = r.Recipe.RecipeId,
-                RecipeTitle = r.Recipe.RecipeTitle,
-                RecipeDescription = r.Recipe.RecipeDescription,
-                Duration = r.Recipe.Duration,
-                IsComplete = r.Recipe.IsComplete,
-                categoryDTO = new CategoryDTO
+                .Include(r => r.category)
+                .Where(r => r.category.CategoryName == request.CategoryName && r.IsComplete)
+                .GroupJoin(
+                    _context.Favourites,
+                    recipe => recipe.RecipeId,
+                    favourite => favourite.recipe.RecipeId,
+                    (recipe, favourites) => new { Recipe = recipe, FavouritesCount = favourites.Count() }
+                )
+                .Select(r => new
                 {
-                    CategoryId = r.Recipe.category.CategoryId,
-                    CategoryName = r.Recipe.category.CategoryName
-                },
-                FavouritesCount = r.FavouritesCount // Adding favorites count to the DTO
-            })
-            .ToListAsync(cancellationToken);
+                    r.Recipe,
+                    r.FavouritesCount,
+                    Author = _context.RecipeAuthors
+                        .Where(ra => ra.Recipe.RecipeId == r.Recipe.RecipeId)
+                        .Select(ra => ra.User)
+                        .FirstOrDefault()
+                })
+                .Select(r => new RecipeDTO
+                {
+                    RecipeId = r.Recipe.RecipeId,
+                    RecipeTitle = r.Recipe.RecipeTitle,
+                    RecipeDescription = r.Recipe.RecipeDescription,
+                    Duration = r.Recipe.Duration,
+                    IsComplete = r.Recipe.IsComplete,
+                    categoryDTO = new CategoryDTO
+                    {
+                        CategoryId = r.Recipe.category.CategoryId,
+                        CategoryName = r.Recipe.category.CategoryName
+                    },
+                    FavouritesCount = r.FavouritesCount,
+                    User = r.Author == null ? null : new UserDTO
+                    {
+                        UserId = r.Author.UserId,
+                        Name = r.Author.Name,
+                        Email = r.Author.Email
+                    }
+                })
+                .ToListAsync(cancellationToken);
 
-             return recipes;
-
+            return recipes;
         }
     }
 }
-
