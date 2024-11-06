@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { environment } from '../environments/environment'; // Make sure to configure environment for your base API URL
 
 @Injectable({
@@ -8,6 +8,7 @@ import { environment } from '../environments/environment'; // Make sure to confi
 })
 export class RecipeService {
   private baseUrl = environment.apiUrl; // Base URL from environment file
+  public userId: number = 0;  // Store userId globally
 
   constructor(private http: HttpClient) {}
 
@@ -85,9 +86,15 @@ export class RecipeService {
   // login(data: any): Observable<any> {
   //   return this.http.post(`${this.baseUrl}/api/AddUser/ValidateUser`, data, { headers: this.getHeaders() });
   // }
+  // login(data: { email: string; password: string }): Observable<any> {
+  //   return this.http.post(`${this.baseUrl}/api/AddUser/ValidateUser`, data, { headers: this.getHeaders() }); 
+  // }
   login(data: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/api/AddUser/ValidateUser`, data, { headers: this.getHeaders() }); 
-  }
+    return this.http.post(`${this.baseUrl}/api/AddUser/ValidateUser`, data, { headers: this.getHeaders() }).pipe(
+      tap((response: any) => {
+        this.userId = response.userId; // Store userId on successful login
+      })
+    );}
 
 
   getUser(): Observable<any> {
