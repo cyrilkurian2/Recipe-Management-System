@@ -20,5 +20,9 @@ namespace RecipeManagement.Application.DTO
 
         public int FavouritesCount { get; set; }
         public UserDTO? User { get; internal set; }
+
+        public string RecipeImage { get; set; }
+
+        public string RecipeSteps { get; set; }
     }
 }

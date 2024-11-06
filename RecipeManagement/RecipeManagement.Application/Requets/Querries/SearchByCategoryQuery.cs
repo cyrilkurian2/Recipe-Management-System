@@ -51,6 +51,8 @@ namespace RecipeManagement.Application.Requests.Queries
                     RecipeDescription = r.Recipe.RecipeDescription,
                     Duration = r.Recipe.Duration,
                     IsComplete = r.Recipe.IsComplete,
+                    RecipeImage = r.Recipe.RecipeImage,
+                    RecipeSteps = r.Recipe.RecipeSteps,
                     categoryDTO = new CategoryDTO
                     {
                         CategoryId = r.Recipe.category.CategoryId,

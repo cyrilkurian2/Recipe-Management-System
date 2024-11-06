@@ -19,11 +19,11 @@ namespace RecipeManagement.API.Controllers
 
         }
         [HttpPost]
-        public async Task<string> AddRemoveFavourites(AddRemoveFavouriteCommand command)
+        public async Task<IActionResult> AddRemoveFavourites(AddRemoveFavouriteCommand command)
         {
-            return await _mediator.Send(command);
+            var resultMessage = await _mediator.Send(command);
+            return Ok(new { message = resultMessage }); 
         }
-
 
     }
 }
