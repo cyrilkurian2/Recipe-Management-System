@@ -83,6 +83,7 @@ export class RecipeService {
 
 
   getFavouritesByUser(userId: number): Observable<any> {
+    console.log(userId);
     return this.http.get(`${this.baseUrl}/api/GetFavourites/${userId}`, { headers: this.getHeaders() });
   }
 

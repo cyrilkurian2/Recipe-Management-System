@@ -42,9 +42,67 @@ export class RecipeCardComponent implements OnInit {
 
 
 
+  // ngOnInit(): void {
+  //   this.loadRecipes();
+  // }
+
   ngOnInit(): void {
-    this.loadRecipes();
+    if (this.showFavoritesOnly) {
+      this.loadFavoriteRecipes();
+    } else {
+      this.loadRecipes();
+    }
   }
+
+
+  ngOnChanges(): void {
+    if (this.selectedCategory) {
+      this.fetchRecipesByCategory(this.selectedCategory);
+    }
+  }
+  
+
+
+
+  loadFavoriteRecipes(): void {
+    const userId = this.recipeService.userId; // Access the current user's ID
+    this.recipeService.getFavouritesByUser(userId).subscribe(
+      (data) => {
+        this.recipes = data.recipes.map((recipe: any) => ({
+          recipeId: recipe.recipeId,
+          recipeTitle: recipe.recipeTitle,
+          imageUrl: 'https://d.img.vision/recipe-management-system/chicken_briyani.jpg', // Optional hardcoded image URL
+          recipeDescription: recipe.recipeDescription,
+          duration: recipe.duration,
+          favouritesCount: recipe.favouritesCount,
+          isfav: true, // Mark as favorite since it’s from the favorite list
+          categoryDTO: recipe.categoryDTO
+        }));
+      },
+      (error) => {
+        console.error('Failed to load favorite recipes:', error);
+      }
+    );
+  }
+
+
+  fetchRecipesByCategory(categoryName: string): void {
+    this.recipeService.viewRecipeByCategory(categoryName).subscribe(
+      (response) => {
+        // Set a hardcoded imageUrl for each recipe
+        this.recipes = response.map((recipe: Recipe) => ({
+          ...recipe,
+          imageUrl: 'https://d.img.vision/recipe-management-system/chicken_briyani.jpg' // Hardcoded image URL
+        }));
+      },
+      (error) => {
+        console.error(`Failed to load recipes for category ${categoryName}:`, error);
+      }
+    );
+  }
+  
+
+
 
   loadRecipes(): void {
     this.recipeService.viewAllRecipes().subscribe(
@@ -55,7 +113,8 @@ export class RecipeCardComponent implements OnInit {
         // Set hardcoded imageUrl for each recipe
         this.recipes = data.map(recipe => ({
           ...recipe,
-          imageUrl: 'https://picsum.photos/id/237/200' // Hardcoded image URL
+          // imageUrl: 'https://picsum.photos/id/237/200' // Hardcoded image URL
+          imageUrl: 'https://d.img.vision/recipe-management-system/chicken_briyani.jpg'
         }));
       },
       (error) => {
@@ -95,17 +154,19 @@ export class RecipeCardComponent implements OnInit {
 
 
   toggleFavourite(recipe: Recipe) {
-  this.recipeService.addRemoveFavourite(recipe.recipeId).subscribe(
-    (response) => {
-      recipe.isfav = !recipe.isfav; // Toggle the favorite status on success
-      console.log(`Toggled favourite for recipe ${recipe.recipeId}, new state: ${recipe.isfav}`);
-    },
-    (error) => {
-      console.error(`Failed to toggle favourite for recipe ${recipe.recipeId}:`, error);
-    }
-  );
-}
-
+    const userId = this.recipeService.userId; // Access userId from RecipeService
+    console.log("hiiiiii"+ userId);
+    this.recipeService.addRemoveFavourite(userId, recipe.recipeId).subscribe(
+      (response) => {
+        recipe.isfav = !recipe.isfav; // Toggle the favorite status on success
+        console.log(`Toggled favourite for recipe ${recipe.recipeId}, new state: ${recipe.isfav}`);
+      },
+      (error) => {
+        console.error(`Failed to toggle favourite for recipe ${recipe.recipeId}:`, error);
+      }
+    );
+  }
+  
 
 
 
