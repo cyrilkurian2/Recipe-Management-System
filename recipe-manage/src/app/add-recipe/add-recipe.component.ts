@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { booleanAttribute, Component, OnInit } from '@angular/core';
 import { RecipeService } from '../recipe.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -11,22 +11,29 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./add-recipe.component.scss']
 })
 export class AddRecipeComponent implements OnInit {
-  availableIngredients: { ingredientid: number; ingredientsName: string }[] = [];
-  selectedIngredients: { ingredientid: number; ingredientsName: string; quantity: string }[] = [];
+  
+
+  availableIngredients: { ingredientId: number; ingredientsName: string }[] = [];
+  selectedIngredients: { ingredientId: number; ingredientsName: string; quantity: string }[] = [];
   ingredientSuggestions: string[] = [];
   ingredientSearchQuery = ''; // Holds the search query for ingredients
   temporaryIngredientIds: number[] = []; // Track newly added ingredient IDs for deletion if not saved
 
+
+  constructor(private recipeService: RecipeService) {}
+
+  
+
   recipeData = {
     RecipeTitle: '',
-    duration: 0,
+    duration: '',
     RecipeDescription: '',
     isCompleted: 0,
     categoryId: 1,
-    userId: 1,
+    userId: 0,
   };
 
-  constructor(private recipeService: RecipeService) {}
+  
 
   ngOnInit() {
     this.loadAvailableIngredients();
@@ -40,7 +47,7 @@ export class AddRecipeComponent implements OnInit {
 
   loadAvailableIngredients() {
     this.recipeService.getAllIngredients().subscribe({
-      next: (response: { ingredientid: number; ingredientsName: string }[]) => {
+      next: (response: { ingredientId: number; ingredientsName: string }[]) => {
         this.availableIngredients = response;
       },
       error: (err) => {
@@ -79,7 +86,7 @@ export class AddRecipeComponent implements OnInit {
   //     const quantity = prompt(`Enter quantity for new ingredient "${ingredientsName}":`, "1 unit");
   //     if (quantity) {
   //       // Temporarily add the new ingredient to the selectedIngredients list
-  //       this.selectedIngredients.push({ ingredientid: 0, ingredientsName, quantity });  // Using 0 as a placeholder id
+  //       this.selectedIngredients.push({ ingredientId: 0, ingredientsName, quantity });  // Using 0 as a placeholder id
   //     }
   //     this.ingredientSearchQuery = '';
   //     this.ingredientSuggestions = [];
@@ -108,9 +115,9 @@ export class AddRecipeComponent implements OnInit {
           next: (newIngredient) => {
             // Add the new ingredient to available ingredients and selectedIngredients
             this.availableIngredients.push(newIngredient);
-            this.temporaryIngredientIds.push(newIngredient.ingredientid); // Track for potential deletion
+            this.temporaryIngredientIds.push(newIngredient.ingredientId); // Track for potential deletion
             this.selectedIngredients.push({ 
-              ingredientid: newIngredient.ingredientid, 
+              ingredientId: newIngredient.ingredientId, 
               ingredientsName, 
               quantity 
             });
@@ -158,17 +165,17 @@ export class AddRecipeComponent implements OnInit {
 
 
   confirmNewIngredients() {
-    const newIngredients = this.selectedIngredients.filter(ingredient => ingredient.ingredientid === 0);
+    const newIngredients = this.selectedIngredients.filter(ingredient => ingredient.ingredientId === 0);
   
     newIngredients.forEach(ingredient => {
       this.recipeService.addIngredient({ ingredientsName: ingredient.ingredientsName }).subscribe({
-        next: (newIngredient: { ingredientid: number; ingredientsName: string }) => {
-          // Update the selectedIngredients with the real ingredientid
+        next: (newIngredient: { ingredientId: number; ingredientsName: string }) => {
+          // Update the selectedIngredients with the real ingredientId
           const ingredientIndex = this.selectedIngredients.findIndex(i => i.ingredientsName === newIngredient.ingredientsName);
           if (ingredientIndex > -1) {
-            this.selectedIngredients[ingredientIndex].ingredientid = newIngredient.ingredientid;
+            this.selectedIngredients[ingredientIndex].ingredientId = newIngredient.ingredientId;
           }
-          console.log(`New ingredient "${newIngredient.ingredientsName}" saved with ID: ${newIngredient.ingredientid}`);
+          console.log(`New ingredient "${newIngredient.ingredientsName}" saved with ID: ${newIngredient.ingredientId}`);
         },
         error: (err) => {
           console.error(`Failed to save new ingredient "${ingredient.ingredientsName}": ${err.message}`);
@@ -179,10 +186,10 @@ export class AddRecipeComponent implements OnInit {
   
   
 
-  addIngredientToList(ingredient: { ingredientid: number; ingredientsName: string }) {
+  addIngredientToList(ingredient: { ingredientId: number; ingredientsName: string }) {
     const quantity = prompt(`Enter quantity for ${ingredient.ingredientsName}:`, "1 unit");
     if (quantity) {
-      this.selectedIngredients.push({ ingredientid: ingredient.ingredientid, ingredientsName: ingredient.ingredientsName, quantity });
+      this.selectedIngredients.push({ ingredientId: ingredient.ingredientId, ingredientsName: ingredient.ingredientsName, quantity });
     }
     this.ingredientSearchQuery = '';
     this.ingredientSuggestions = [];
@@ -190,7 +197,7 @@ export class AddRecipeComponent implements OnInit {
 
   addNewIngredient(ingredientsName: string) {
     this.recipeService.addIngredient({ ingredientsName: ingredientsName }).subscribe({
-      next: (newIngredient: { ingredientid: number; ingredientsName: string }) => {
+      next: (newIngredient: { ingredientId: number; ingredientsName: string }) => {
         this.availableIngredients.push(newIngredient);
         alert(`Ingredient "${ingredientsName}" added successfully!`);
         this.addIngredientToList(newIngredient);
@@ -205,8 +212,27 @@ export class AddRecipeComponent implements OnInit {
     this.selectedIngredients.splice(index, 1);
   }
 
+  // saveRecipe(isComplete: boolean) {
+  //   this.recipeData.isCompleted = isComplete ? 1 : 0;
+  //   this.recipeService.addRecipe(this.recipeData).subscribe({
+  //     next: (recipeId: number) => {
+  //       alert(isComplete ? 'Recipe submitted successfully!' : 'Recipe saved as draft!');
+  //       console.log('Recipe added with ID:', recipeId);
+  //       this.addIngredientsToRecipe(recipeId);
+  //     },
+  //     error: (err) => {
+  //       alert(`Failed to ${isComplete ? 'submit' : 'save draft'}: ${err.message}`);
+  //     }
+  //   });
+  // }
+
+
+
+
+
+
   saveRecipe(isComplete: boolean) {
-    this.recipeData.isCompleted = isComplete ? 1 : 0;
+    this.recipeData.isCompleted = isComplete ? 1 : 0; // Update the completion status
     this.recipeService.addRecipe(this.recipeData).subscribe({
       next: (recipeId: number) => {
         alert(isComplete ? 'Recipe submitted successfully!' : 'Recipe saved as draft!');
@@ -218,12 +244,21 @@ export class AddRecipeComponent implements OnInit {
       }
     });
   }
+  
+
+
+
+
+
+
+
+
 
   // addIngredientsToRecipe(recipeId: number) {
   //   this.selectedIngredients.forEach((ingredient) => {
   //     const ingredientData = {
   //       recipeId,
-  //       ingredientid: ingredient.ingredientid, // Use ingredientID instead of ingredientsName
+  //       ingredientId: ingredient.ingredientId, // Use ingredientID instead of ingredientsName
   //       ingredientsName: ingredient.ingredientsName,
   //       quantity: ingredient.quantity
   //     };
@@ -249,13 +284,18 @@ export class AddRecipeComponent implements OnInit {
         (availableIngredient) => availableIngredient.ingredientsName === ingredient.ingredientsName
       );
       
-      // Ensure ingredientid is available before making API call
+      // Ensure ingredientId is available before making API call
       if (matchingIngredient) {
+        
+        console.log(matchingIngredient);
+
         const ingredientData = {
           recipeId,
-          ingredientid: matchingIngredient.ingredientid, // Retrieve ingredientid using ingredientsName
+          ingredientId: matchingIngredient.ingredientId, // Retrieve ingredientId using ingredientsName
           quantity: ingredient.quantity
         };
+
+        console.log(ingredientData);
         
         this.recipeService.addRecipeIngredient(ingredientData).subscribe({
           next: () => {
@@ -278,11 +318,15 @@ export class AddRecipeComponent implements OnInit {
 
   onSubmit() {
     this.temporaryIngredientIds = []; // Clear temporary ingredient tracking as they're now part of a saved recipe
+    this.recipeData.userId = this.recipeService.userId;  // Get the userId from RecipeService
+    this.recipeData.isCompleted = 1;  // Mark the recipe as completed
     this.saveRecipe(true); // Save as completed recipe
   }
 
   saveAsDraft() {
     this.temporaryIngredientIds = []; // Clear temporary ingredient tracking as they're now part of a saved recipe
+    this.recipeData.userId = this.recipeService.userId;  // Get the userId from RecipeService
+    this.recipeData.isCompleted = 0;  // Mark the recipe as a draft
     this.saveRecipe(false); // Save as draft
   }
 

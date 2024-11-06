@@ -153,11 +153,11 @@ export class RecipeService {
   }
 
 
-  getAllIngredients(): Observable<{ ingredientid: number; ingredientsName: string }[]> {
-    return this.http.get<{ ingredientid: number; ingredientsName: string }[]>(`${this.baseUrl}/api/GetAllIngredients`);
+  getAllIngredients(): Observable<{ ingredientId: number; ingredientsName: string }[]> {
+    return this.http.get<{ ingredientId: number; ingredientsName: string }[]>(`${this.baseUrl}/api/GetAllIngredients`);
   }
 
-  addRecipeIngredient(ingredientData: { recipeId: number; ingredientid:number; quantity: string }): Observable<any> {
+  addRecipeIngredient(ingredientData: { recipeId: number; ingredientId:number; quantity: string }): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/api/AddRecipeIngredient`, ingredientData);
   }
 

@@ -4,6 +4,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { RecipeService} from '../../recipe.service'; // Adjust the import according to your service's path
+import { Router, RouterModule, Routes} from '@angular/router';
+
 
 @Component({
   selector: 'app-registration',
@@ -15,7 +17,7 @@ import { RecipeService} from '../../recipe.service'; // Adjust the import accord
 export class RegistrationComponent {
   userForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private userService: RecipeService) {
+  constructor(private fb: FormBuilder, private userService: RecipeService, private router: Router) {
     this.userForm = this.fb.group<IuseForm>({
       fullName: new FormControl('', Validators.required),
       email: new FormControl('', [
@@ -50,7 +52,10 @@ export class RegistrationComponent {
       this.userService.addUser(userData).subscribe({
         next: (response: any) => {
           console.log('User registered successfully:', response);
+          alert("User registered successfully");
+          
           // Handle successful registration (e.g., navigate to login, show success message)
+          this.router.navigate(['user/login']);
         },
         error: (error: any) => {
           console.error('Error during registration:', error);

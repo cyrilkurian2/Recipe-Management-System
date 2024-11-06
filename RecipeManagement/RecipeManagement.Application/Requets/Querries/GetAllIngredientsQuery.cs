@@ -28,7 +28,7 @@ namespace RecipeManagement.Application.Requets.Querries
             var ingredients = await _context.Ingredients
                 .Select(x => new IngredientDTO
                 {
-                    IngredientID=x.IngredientsId,
+                    IngredientId=x.IngredientsId,
                     IngredientsName = x.IngredientsName
                 })
                 .ToListAsync(cancellationToken);

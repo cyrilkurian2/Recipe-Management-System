@@ -14,7 +14,7 @@ namespace RecipeManagement.Application.Requets.Commands.RecipeIngredientCommands
     public class AddRecipeIngredientCommand : IRequest<int>
     {
         public int RecipeId { get; set; }
-        public int ingredientid { get; set; }
+        public int ingredientId { get; set; }
 
         public string Quantity { get; set; }
 
@@ -36,7 +36,7 @@ namespace RecipeManagement.Application.Requets.Commands.RecipeIngredientCommands
             RecipeIngredients recipeIngredients=new RecipeIngredients();
             Recipe recipe=_context.Recipes.Where(a=>a.RecipeId==request.RecipeId).First();
             recipeIngredients.recipe=recipe;
-            Ingredients ingredients=_context.Ingredients.Where(a=>a.IngredientsId==request.ingredientid).First();
+            Ingredients ingredients=_context.Ingredients.Where(a=>a.IngredientsId==request.ingredientId).First();
             recipeIngredients.ingredients=ingredients;
             recipeIngredients.Quantity=request.Quantity;
             _context.RecipeIngredients.Add(recipeIngredients);
