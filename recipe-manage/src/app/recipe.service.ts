@@ -48,8 +48,11 @@ export class RecipeService {
     return this.http.put(`${this.baseUrl}/addRecipe/${recipeId}`, data, { headers: this.getHeaders() });
   }
 
-  deleteRecipe(recipeId: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/deleteRecipeById/${recipeId}`, { headers: this.getHeaders() });
+  deleteRecipe(recipeId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/api/DeleteRecipeById`, {
+      headers: this.getHeaders(),
+      params: { recipeId: recipeId.toString() } // Add recipeId as a query parameter
+    });
   }
 
   viewAllRecipes(): Observable<any> {

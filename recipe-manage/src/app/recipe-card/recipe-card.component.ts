@@ -172,10 +172,32 @@ export class RecipeCardComponent implements OnInit {
 
 
 
-  deleteRecipe(recipeId: number) {
-    console.log(`Deleted recipe ${recipeId}`);
-    // Add delete logic here
+  // deleteRecipe(recipeId: number) {
+  //   console.log(`Deleted recipe ${recipeId}`);
+  //   // Add delete logic here
+  // }
+
+
+
+
+  deleteRecipe(recipeId: number): void {
+    this.recipeService.deleteRecipe(recipeId).subscribe(
+      () => {
+        alert('Recipe deleted successfully.');
+        if (this.isProfileView) {
+          this.loadRecipes(); // Reload recipes if in profile view
+        }
+      },
+      (error) => {
+        console.error(`Failed to delete recipe ${recipeId}:`, error);
+        alert('Failed to delete recipe. Please try again.');
+      }
+    );
   }
+
+
+
+
 
   editRecipe(recipeId: number) {
     console.log(`Editing recipe ${recipeId}`);
