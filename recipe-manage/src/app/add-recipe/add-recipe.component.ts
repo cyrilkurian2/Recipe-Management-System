@@ -33,6 +33,7 @@ export class AddRecipeComponent implements OnInit {
     isComplete: false,
     categoryId: 0,
     userId: 0,
+    RecipeImage: ''
   };
 
   
@@ -41,6 +42,22 @@ export class AddRecipeComponent implements OnInit {
     this.loadAvailableIngredients();
   }
 
+
+
+  onImageUpload(event: any): void {
+    const file = event.target.files[0]; // Get the first file (if multiple files are allowed, you can handle them here)
+    
+    if (file) {
+      const reader = new FileReader();
+      
+      reader.onloadend = () => {
+        // Once the file is read, assign the Base64 string to RecipeImage
+        this.recipeData.RecipeImage = reader.result as string;
+      };
+
+      reader.readAsDataURL(file);  // This converts the image to Base64
+    }
+  }
 
   // ngOnDestroy() {
   //   // Remove unsaved ingredients if the user exits without saving
