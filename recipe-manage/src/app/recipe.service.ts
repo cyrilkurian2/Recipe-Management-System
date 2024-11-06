@@ -1,25 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { environment } from '../environments/environment'; // Make sure to configure environment for your base API URL
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
-  private baseUrl = environment.apiUrl; // Base URL from environment file
-  public userId: number = 0;  // Store userId globally
+  private baseUrl = environment.apiUrl;
+  public userId: number =0;  // Track userId to manage login status
 
   constructor(private http: HttpClient) {}
 
-  // Headers (if you need authentication headers, set them here)
   private getHeaders(): HttpHeaders {
-    return new HttpHeaders({
-      'Content-Type': 'application/json',
-      // Add authorization token if required
-      // 'Authorization': `Bearer ${token}`
-    });
+    return new HttpHeaders({ 'Content-Type': 'application/json' });
   }
+
+  // Set userId after login
+  login(data: { email: string; password: string }): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/AddUser/ValidateUser`, data, { headers: this.getHeaders() }).pipe(
+      tap((response: any) => {
+        if (response) {
+          this.userId = response;
+          console.log('UserId stored in service:', this.userId);
+        } else {
+          console.error('Invalid login response or missing userId');
+        }
+      })
+    );
+  }
+
+  // Check if the user is logged in
+  isLoggedIn(): boolean {
+    return this.userId !== 0;
+  }
+
 
   // Category APIs
   getCategories(): Observable<any> {
@@ -122,18 +137,18 @@ export class RecipeService {
 
 
 
-  login(data: { email: string; password: string }): Observable<any> {
-    return this.http.post(`${this.baseUrl}/api/AddUser/ValidateUser`, data, { headers: this.getHeaders() }).pipe(
-      tap((response:any) => {
-        if (response) {
-          this.userId = response; // Store userId on successful login
-          console.log('UserId stored in service:', this.userId); // Debug log
-        } else {
-          console.error('Invalid login response or missing userId');
-        }
-      })
-    );
-  }
+  // login(data: { email: string; password: string }): Observable<any> {
+  //   return this.http.post(`${this.baseUrl}/api/AddUser/ValidateUser`, data, { headers: this.getHeaders() }).pipe(
+  //     tap((response:any) => {
+  //       if (response) {
+  //         this.userId = response; // Store userId on successful login
+  //         console.log('UserId stored in service:', this.userId); // Debug log
+  //       } else {
+  //         console.error('Invalid login response or missing userId');
+  //       }
+  //     })
+  //   );
+  // }
 
 
 
