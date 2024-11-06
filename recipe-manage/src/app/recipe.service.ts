@@ -138,7 +138,9 @@ export class RecipeService {
 
 
 
-
+  getTop5FavouriteRecipes(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/api/Top5Recipes/top5/${userId}`);
+  }
 
 
 
