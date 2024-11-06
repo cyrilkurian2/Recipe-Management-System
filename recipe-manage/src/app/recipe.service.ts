@@ -8,24 +8,31 @@ import { environment } from '../environments/environment';
 })
 export class RecipeService {
   private baseUrl = environment.apiUrl;
-  public userId: number =0;  // Track userId to manage login status
-
+  public userId: number = 0; // Track userId to manage login status
   private searchResultsSubject = new BehaviorSubject<any[]>([]); // Store search results
   searchResults$ = this.searchResultsSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    // Retrieve userId from sessionStorage on service initialization
+    const storedUserId = sessionStorage.getItem('userId');
+    if (storedUserId) {
+      this.userId = parseInt(storedUserId, 10); // Parse the stored string value to a number
+    }
+  }
+
 
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({ 'Content-Type': 'application/json' });
   }
 
-  // Set userId after login
+  // Set userId after login and store in sessionStorage
   login(data: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.baseUrl}/api/AddUser/ValidateUser`, data, { headers: this.getHeaders() }).pipe(
       tap((response: any) => {
         if (response) {
           this.userId = response;
-          console.log('UserId stored in service:', this.userId);
+          sessionStorage.setItem('userId', this.userId.toString()); // Store userId in sessionStorage
+          console.log('UserId stored in sessionStorage:', this.userId);
         } else {
           console.error('Invalid login response or missing userId');
         }
@@ -37,6 +44,7 @@ export class RecipeService {
   isLoggedIn(): boolean {
     return this.userId !== 0;
   }
+
 
 
   // Category APIs

@@ -102,6 +102,9 @@ namespace RecipeManagement.Application.Requests.Queries
                     RecipeTitle = r.Recipe.RecipeTitle,
                     RecipeDescription = r.Recipe.RecipeDescription,
                     Duration = r.Recipe.Duration,
+                    RecipeSteps = r.Recipe.RecipeSteps,
+                    RecipeImage = r.Recipe.RecipeImage,
+
                     IsComplete = r.Recipe.IsComplete,
                     categoryDTO = new CategoryDTO
                     {

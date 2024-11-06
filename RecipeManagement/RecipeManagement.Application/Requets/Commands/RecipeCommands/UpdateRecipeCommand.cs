@@ -65,6 +65,8 @@ namespace RecipeManagement.Application.Requests.Commands.RecipeCommands
         public string Duration { get; set; }
         public bool IsComplete { get; set; }
         public int CategoryId { get; set; }
+        public string RecipeSteps { get; set; }
+
 
         public void SetRequestId(int id)
         {
@@ -96,7 +98,9 @@ namespace RecipeManagement.Application.Requests.Commands.RecipeCommands
             recipe.RecipeTitle = request.RecipeTitle;
             recipe.RecipeDescription = request.RecipeDescription;
             recipe.Duration = request.Duration;
+            recipe.RecipeSteps = request.RecipeSteps;
             recipe.IsComplete = request.IsComplete;
+
 
             // Update category if needed
             if (recipe.category == null || recipe.category.CategoryId != request.CategoryId)

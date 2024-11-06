@@ -10,10 +10,16 @@ namespace RecipeManagement.Domain.Entity
     {
         public int RecipeId { get; set; }
         public string RecipeTitle { get; set; }
-        public string RecipeDescription { get; set;}
+        public string RecipeDescription { get; set; }
         public string Duration { get; set; }
-        public Category category { get; set; }  
-        public bool IsComplete {  get; set; }=false;
+        public Category category { get; set; }
+        public bool IsComplete { get; set; } = false;
+
+        public string RecipeImage { get; set; }
+
+        public string RecipeSteps {  get; set; }
+
+
 
 
     }

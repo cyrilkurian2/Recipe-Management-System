@@ -23,6 +23,9 @@ namespace RecipeManagement.Application.Requets.Commands.RecipeCommands
         public bool IsComplete { get; set; } = false;
 
         public int UserId { get; set; }
+        public string RecipeImage { get; set; }
+
+        public string RecipeSteps { get; set; }
 
     }
 
@@ -40,6 +43,8 @@ namespace RecipeManagement.Application.Requets.Commands.RecipeCommands
             recipe.RecipeTitle=request.RecipeTitle;
             recipe.RecipeDescription=request.RecipeDescription;
             recipe.Duration=request.Duration;
+            recipe.RecipeSteps=request.RecipeSteps;
+            recipe.RecipeImage=request.RecipeImage; 
 
 
                 Category category = _context.Category.Where(a => a.CategoryId == request.CategoryId).First();
