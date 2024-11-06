@@ -181,5 +181,9 @@ export class RecipeService {
   getRecipeIngredients(recipeId: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/api/GetRecipeIngredients/${recipeId}/ingredients`);
   }
+
+  getUserById(userId: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/api/AddUser/${userId}`, { headers: this.getHeaders(), params: { userId } });
+  }
   
 }

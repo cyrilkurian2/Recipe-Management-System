@@ -1,9 +1,13 @@
-.bannerimage{
-    background-image: url(../../assets/cropimage1.jpg);
+
+:host {
+    position: fixed;          /* Makes it cover the whole viewport */
+    top: 0;
+    left: 0;
+    width: 100vw;             /* Full viewport width */
+    height: 100vh;            /* Full viewport height */
+    background-image: url('../../assets/cropimage.jpg');  /* Path to the image */
+    background-size: cover;   /* Ensures the image covers the entire area */
+    background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
-    // background-position: center;
-    height: 100vh;      
-    width: 100vw;       
-    overflow:hidden
+    z-index: -1;              /* Send it to the back */
 }
