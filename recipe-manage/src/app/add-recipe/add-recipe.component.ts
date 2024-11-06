@@ -50,9 +50,16 @@ export class AddRecipeComponent implements OnInit {
     if (file) {
       const reader = new FileReader();
       
-      reader.onloadend = () => {
-        // Once the file is read, assign the Base64 string to RecipeImage
-        this.recipeData.RecipeImage = reader.result as string;
+      // reader.onloadend = () => {
+      //   // Once the file is read, assign the Base64 string to RecipeImage
+      //   this.recipeData.RecipeImage = reader.result as string;
+      // };
+
+
+      reader.onload = (e: any) => {
+        // Extract base64 without the header
+        const base64Image = e.target.result.split(',')[1]; // Split and take only the base64 part
+        this.recipeData.RecipeImage = base64Image; // Store the base64 image string in recipeData
       };
 
       reader.readAsDataURL(file);  // This converts the image to Base64
