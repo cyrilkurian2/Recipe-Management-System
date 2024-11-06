@@ -26,9 +26,9 @@ namespace RecipeManagement.API.Controllers
             return await _mediator.Send(command);
         }
 
-        [HttpGet]
+        [HttpGet("{userId}")]
 
-        public async Task<UserDTO> Get([FromBody] int userId)
+        public async Task<UserDTO> Get( int userId)
         {
             return await _mediator.Send(new GetUserQuerry { UserId = userId });
         }
