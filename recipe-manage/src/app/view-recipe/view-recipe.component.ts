@@ -86,17 +86,15 @@ export class ViewRecipeComponent implements OnInit {
   }
 
   fetchRecipeWithIngredients(recipeId: string) {
-    // Fetch both the recipe details and ingredients in parallel
     forkJoin({
       recipe: this.recipeService.viewRecipeById(recipeId),
       ingredients: this.recipeService.getRecipeIngredients(recipeId)
     }).subscribe(
       ({ recipe, ingredients }) => {
-        // Combine recipe data with ingredients
         this.recipe = {
           ...recipe,
-          ingredients: ingredients, // Add ingredients to the recipe data
-          imageUrl: 'https://d.img.vision/recipe-management-system/chicken_briyani.jpg' // Hardcoded image URL
+          ingredients: ingredients, 
+          imageUrl: 'https://d.img.vision/recipe-management-system/chicken_briyani.jpg' 
         };
       },
       (error) => {

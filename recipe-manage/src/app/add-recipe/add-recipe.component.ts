@@ -29,8 +29,8 @@ export class AddRecipeComponent implements OnInit {
     RecipeTitle: '',
     duration: '',
     RecipeDescription: '',
-    isCompleted: 0,
-    categoryId: 1,
+    isComplete: false,
+    categoryId: 0,
     userId: 0,
   };
 
@@ -233,7 +233,7 @@ export class AddRecipeComponent implements OnInit {
 
 
   saveRecipe(isComplete: boolean) {
-    this.recipeData.isCompleted = isComplete ? 1 : 0; // Update the completion status
+    this.recipeData.isComplete = isComplete ? true : false; // Update the completion status
     this.recipeService.addRecipe(this.recipeData).subscribe({
       next: (recipeId: number) => {
         alert(isComplete ? 'Recipe submitted successfully!' : 'Recipe saved as draft!');
@@ -320,7 +320,7 @@ export class AddRecipeComponent implements OnInit {
   onSubmit() {
     this.temporaryIngredientIds = []; // Clear temporary ingredient tracking as they're now part of a saved recipe
     this.recipeData.userId = this.recipeService.userId;  // Get the userId from RecipeService
-    this.recipeData.isCompleted = 1;  // Mark the recipe as completed
+    this.recipeData.isComplete = true;  // Mark the recipe as completed
     this.saveRecipe(true); // Save as completed recipe
     
     this.router.navigate(['profile']);
@@ -329,7 +329,7 @@ export class AddRecipeComponent implements OnInit {
   saveAsDraft() {
     this.temporaryIngredientIds = []; // Clear temporary ingredient tracking as they're now part of a saved recipe
     this.recipeData.userId = this.recipeService.userId;  // Get the userId from RecipeService
-    this.recipeData.isCompleted = 0;  // Mark the recipe as a draft
+    this.recipeData.isComplete = false;  // Mark the recipe as a draft
     this.saveRecipe(false); // Save as draft
 
     this.router.navigate(['profile']);

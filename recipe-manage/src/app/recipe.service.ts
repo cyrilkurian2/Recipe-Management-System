@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { environment } from '../environments/environment';
 
 @Injectable({
@@ -9,6 +9,9 @@ import { environment } from '../environments/environment';
 export class RecipeService {
   private baseUrl = environment.apiUrl;
   public userId: number =0;  // Track userId to manage login status
+
+  private searchResultsSubject = new BehaviorSubject<any[]>([]); // Store search results
+  searchResults$ = this.searchResultsSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -105,10 +108,20 @@ export class RecipeService {
     return this.http.get(`${this.baseUrl}/api/GetFavourites/${userId}`, { headers: this.getHeaders() });
   }
 
-  // Search
-  searchRecipes(searchQuery: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/getSearch/${searchQuery}`, { headers: this.getHeaders() });
+
+
+  // Method to call the API for search
+  searchRecipes(searchQuery: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/api/GetSearch/search?recipeTitle=${searchQuery}`,{ headers: this.getHeaders() });
   }
+
+  // Update the search results in the subject
+  updateSearchResults(data: any[]) {
+    this.searchResultsSubject.next(data);
+  }
+
+
+
 
   // User APIs
   addUser(data: any): Observable<any> {

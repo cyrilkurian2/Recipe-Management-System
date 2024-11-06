@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
 import { RecipeService } from '../recipe.service';
+import { Subscription } from 'rxjs';
 
 
 
@@ -38,6 +39,8 @@ export class RecipeCardComponent implements OnInit {
 
   recipes: Recipe[] = [];
 
+  private searchResultsSubscription: Subscription | null = null;
+
   constructor(private http: HttpClient, private router: Router,private recipeService: RecipeService) {}
 
 
@@ -57,6 +60,19 @@ export class RecipeCardComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    // Subscribe to search results
+    this.searchResultsSubscription = this.recipeService.searchResults$.subscribe(
+      (data) => {
+        this.recipes = data.map((recipe: any) => ({
+          ...recipe,
+          imageUrl: 'https://d.img.vision/recipe-management-system/chicken_briyani.jpg' // Hardcoded image URL
+        }));
+      }
+    );
+
+
+
     if (this.isProfileView) {
       this.loadProfileRecipes();
     } else if (this.showFavoritesOnly) {
@@ -74,6 +90,19 @@ export class RecipeCardComponent implements OnInit {
       this.fetchRecipesByCategory(this.selectedCategory);
     }
   }
+
+
+
+
+
+  ngOnDestroy(): void {
+    if (this.searchResultsSubscription) {
+      this.searchResultsSubscription.unsubscribe();
+    }
+  }
+
+
+
 
 
   loadProfileRecipes(): void {

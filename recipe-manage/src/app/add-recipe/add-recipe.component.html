@@ -50,6 +50,18 @@
           </li>
         </ul>
       </div>
+
+
+
+      <div class="mb-3">
+        <label for="category" class="form-label">Select Category</label>
+        <select class="form-select" id="category" [(ngModel)]="recipeData.categoryId" name="category" required>
+          <option value="1">Breakfast</option>
+          <option value="2">Lunch</option>
+          <option value="3">Dinner</option>
+        </select>
+      </div>
+      
       
 
       <!-- Steps to Prepare -->

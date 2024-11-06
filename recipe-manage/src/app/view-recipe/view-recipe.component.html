@@ -1,22 +1,3 @@
-<!-- <div *ngIf="recipe" class="container m-5 d-flex justify-content-center">
-    <div class="card" style="width: 60rem;">
-      <div class="image-crop">
-        <img [src]="recipe.imageUrl" class="card-img-top" alt="Recipe Image">
-      </div>
-      <div class="card-body">
-        <h2 class="card-title text-center">{{ recipe.name }}</h2>
-        <p><strong>Rating:</strong> {{ recipe.rating }} / 5</p>
-  
-        <h4 class="mt-4">Ingredients</h4>
-        <ul class="list-group list-group-flush">
-          <li *ngFor="let ingredient of recipe.ingredients" class="list-group-item">{{ ingredient }}</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-   -->
-
-
 
    <div *ngIf="recipe; else loading" class="container m-5 d-flex justify-content-center">
     <div class="card" style="width: 60rem;">
@@ -31,11 +12,13 @@
         <p>Duration: {{recipe.duration}}</p>
         <p>Recipe Description: {{recipe.recipeDescription}}</p>
 
-
-        <!-- <h4 class="mt-4">Ingredients</h4>
+        <h4 class="mt-4">Ingredients</h4>
         <ul class="list-group list-group-flush">
-          <li *ngFor="let ingredient of recipe.ingredients" class="list-group-item">{{ ingredient. }}</li>
-        </ul> -->
+          <li *ngFor="let ingredient of recipe.ingredients" class="list-group-item">
+            {{ ingredient.ingredientName }} - {{ ingredient.quantity }}
+          </li>
+        </ul>
+
       </div>
     </div>
   </div>
