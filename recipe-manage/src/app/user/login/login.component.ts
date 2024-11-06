@@ -28,13 +28,16 @@ export class LoginComponent {
   onSubmit() {
     if (this.userForm.valid) {
       const { email, password } = this.userForm.value;
-      console.log('hi');
+    
       // Call the login method from the UserService
       this.userService.login({ email, password }).subscribe({
         next: (response) => {
           const userId = response.userId; // Assuming the API returns userId on successful login
           console.log('User logged in successfully:', userId);
-          this.router.navigate(['/home-page']); // Redirect on successful login
+          
+          this.router.navigate(['/home-page']);
+          console.log(this.userService.userId);
+          console.log("Hi123") // Redirect on successful login
         },
         error: (error) => {
           console.error('Error during login:', error);

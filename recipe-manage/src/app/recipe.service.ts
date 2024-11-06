@@ -102,12 +102,41 @@ export class RecipeService {
   // login(data: { email: string; password: string }): Observable<any> {
   //   return this.http.post(`${this.baseUrl}/api/AddUser/ValidateUser`, data, { headers: this.getHeaders() }); 
   // }
+  
+  // login(data: { email: string; password: string }): Observable<any> {
+  //   return this.http.post(`${this.baseUrl}/api/AddUser/ValidateUser`, data, { headers: this.getHeaders() }).pipe(
+  //     tap((response: any) => {
+  //       if (response && response.userId) {
+  //         this.userId = response.userId; // Store userId on successful login
+  //         console.log('UserId stored in service:', this.userId); // Debug log
+  //       } else {
+  //         console.error('Invalid login response or missing userId');
+  //       }
+  //     })
+  //   );
+  // }
+
+
+
   login(data: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.baseUrl}/api/AddUser/ValidateUser`, data, { headers: this.getHeaders() }).pipe(
-      tap((response: any) => {
-        this.userId = response.userId; // Store userId on successful login
+      tap((response:any) => {
+        if (response) {
+          this.userId = response; // Store userId on successful login
+          console.log('UserId stored in service:', this.userId); // Debug log
+        } else {
+          console.error('Invalid login response or missing userId');
+        }
       })
-    );}
+    );
+  }
+
+
+
+
+
+
+
 
 
   getUser(): Observable<any> {
