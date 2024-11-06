@@ -33,7 +33,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RecipeService } from '../recipe.service'; // Adjust the path as necessary
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-view-recipe',
@@ -50,21 +50,64 @@ export class ViewRecipeComponent implements OnInit {
     private recipeService: RecipeService // Inject the RecipeService
   ) {}
 
+  // ngOnInit() {
+  //   const recipeId = this.route.snapshot.paramMap.get('id');
+  //   if (recipeId) {
+  //     this.fetchRecipe(recipeId); // Fetch the recipe from the API
+  //   }
+  // }
+
+  // fetchRecipe(recipeId: string) {
+  //   this.recipeService.viewRecipeById(recipeId).subscribe(
+  //     // (data) => {
+  //     //   this.recipe = data; // Set the fetched recipe data
+  //     // },
+  //     (data) => {
+  //       // Set the fetched recipe data
+  //       this.recipe = {
+  //         ...data, // Spread the original recipe data
+  //         imageUrl: 'https://d.img.vision/recipe-management-system/chicken_briyani.jpg' // Hardcoded image URL
+  //       };
+  //     },
+  //     (error) => {
+  //       console.error('Error fetching recipe:', error);
+  //     }
+  //   );
+  // }
+
+
+
+
   ngOnInit() {
     const recipeId = this.route.snapshot.paramMap.get('id');
     if (recipeId) {
-      this.fetchRecipe(recipeId); // Fetch the recipe from the API
+      this.fetchRecipeWithIngredients(recipeId); // Fetch the recipe and its ingredients
     }
   }
 
-  fetchRecipe(recipeId: string) {
-    this.recipeService.viewRecipeById(recipeId).subscribe(
-      (data) => {
-        this.recipe = data; // Set the fetched recipe data
+  fetchRecipeWithIngredients(recipeId: string) {
+    // Fetch both the recipe details and ingredients in parallel
+    forkJoin({
+      recipe: this.recipeService.viewRecipeById(recipeId),
+      ingredients: this.recipeService.getRecipeIngredients(recipeId)
+    }).subscribe(
+      ({ recipe, ingredients }) => {
+        // Combine recipe data with ingredients
+        this.recipe = {
+          ...recipe,
+          ingredients: ingredients, // Add ingredients to the recipe data
+          imageUrl: 'https://d.img.vision/recipe-management-system/chicken_briyani.jpg' // Hardcoded image URL
+        };
       },
       (error) => {
-        console.error('Error fetching recipe:', error);
+        console.error('Error fetching recipe or ingredients:', error);
       }
     );
   }
+
+
+
+
+
+
 }

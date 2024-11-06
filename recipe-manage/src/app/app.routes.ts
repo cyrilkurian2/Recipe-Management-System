@@ -14,6 +14,7 @@ import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 
 export const routes: Routes = [
     // { path:'user', component: UserComponent},
+    { path:'',redirectTo: 'login',pathMatch: 'full'},
     { path:'home-page', component: HomepageComponent },
     { path:'profile', component: ProfileComponent},
     { path: 'recipe/:id', component: ViewRecipeComponent },

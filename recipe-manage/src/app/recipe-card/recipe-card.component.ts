@@ -46,8 +46,20 @@ export class RecipeCardComponent implements OnInit {
   //   this.loadRecipes();
   // }
 
+  // ngOnInit(): void {
+  //   if (this.showFavoritesOnly) {
+  //     this.loadFavoriteRecipes();
+  //   } else {
+  //     this.loadRecipes();
+  //   }
+  // }
+
+
+
   ngOnInit(): void {
-    if (this.showFavoritesOnly) {
+    if (this.isProfileView) {
+      this.loadProfileRecipes();
+    } else if (this.showFavoritesOnly) {
       this.loadFavoriteRecipes();
     } else {
       this.loadRecipes();
@@ -55,11 +67,40 @@ export class RecipeCardComponent implements OnInit {
   }
 
 
+
+
   ngOnChanges(): void {
     if (this.selectedCategory) {
       this.fetchRecipesByCategory(this.selectedCategory);
     }
   }
+
+
+  loadProfileRecipes(): void {
+    const userId = this.recipeService.userId; // Access the current user's ID
+    this.recipeService.viewProfileRecipes(userId).subscribe(
+      (data) => {
+        this.recipes = data.map((recipe: any) => ({
+          recipeId: recipe.recipeId,
+          recipeTitle: recipe.recipeTitle,
+          imageUrl: 'https://d.img.vision/recipe-management-system/chicken_briyani.jpg', // Hardcoded image URL
+          recipeDescription: recipe.recipeDescription,
+          duration: recipe.duration,
+          favouritesCount: recipe.favouritesCount,
+          isfav: recipe.favouritesCount > 0, // Assuming favorite if it has count > 0
+          categoryDTO: recipe.categoryDTO
+        }));
+      },
+      (error) => {
+        console.error('Failed to load profile recipes:', error);
+      }
+    );
+  }
+
+
+
+
+
   
 
 

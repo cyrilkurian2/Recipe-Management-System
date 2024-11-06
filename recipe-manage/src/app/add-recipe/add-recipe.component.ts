@@ -2,6 +2,7 @@ import { booleanAttribute, Component, OnInit } from '@angular/core';
 import { RecipeService } from '../recipe.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-recipe',
@@ -20,7 +21,7 @@ export class AddRecipeComponent implements OnInit {
   temporaryIngredientIds: number[] = []; // Track newly added ingredient IDs for deletion if not saved
 
 
-  constructor(private recipeService: RecipeService) {}
+  constructor(private recipeService: RecipeService, private router: Router) {}
 
   
 
@@ -321,6 +322,8 @@ export class AddRecipeComponent implements OnInit {
     this.recipeData.userId = this.recipeService.userId;  // Get the userId from RecipeService
     this.recipeData.isCompleted = 1;  // Mark the recipe as completed
     this.saveRecipe(true); // Save as completed recipe
+    
+    this.router.navigate(['profile']);
   }
 
   saveAsDraft() {
@@ -328,6 +331,8 @@ export class AddRecipeComponent implements OnInit {
     this.recipeData.userId = this.recipeService.userId;  // Get the userId from RecipeService
     this.recipeData.isCompleted = 0;  // Mark the recipe as a draft
     this.saveRecipe(false); // Save as draft
+
+    this.router.navigate(['profile']);
   }
 
 

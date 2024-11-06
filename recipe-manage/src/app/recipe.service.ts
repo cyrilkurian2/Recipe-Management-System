@@ -150,8 +150,8 @@ export class RecipeService {
   }
 
   // Profile-specific Recipe View
-  viewProfileRecipes(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/viewProfileRecipe`, { headers: this.getHeaders() });
+  viewProfileRecipes(userId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/api/ViewProfileRecipe`, { headers: this.getHeaders(), params: { userId } });
   }
 
 
@@ -163,4 +163,8 @@ export class RecipeService {
     return this.http.post<any>(`${this.baseUrl}/api/AddRecipeIngredient`, ingredientData);
   }
 
+  getRecipeIngredients(recipeId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/api/GetRecipeIngredients/${recipeId}/ingredients`);
+  }
+  
 }
