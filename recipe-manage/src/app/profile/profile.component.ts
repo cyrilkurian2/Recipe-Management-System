@@ -4,6 +4,7 @@ import { RecipeCardComponent } from '../recipe-card/recipe-card.component';
 import Chart from 'chart.js/auto';
 import { RouterModule } from '@angular/router';
 import { FavouritesChartComponent } from "./favourites-chart/favourites-chart.component";
+import { RecipeService } from '../recipe.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,33 +14,19 @@ import { FavouritesChartComponent } from "./favourites-chart/favourites-chart.co
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent {
-  // topRatedRecipes = {
-  //   labels: ['Recipe 1', 'Recipe 2', 'Recipe 3', 'Recipe 4', 'Recipe 5'],
-  //   datasets: [{
-  //     label: 'Rating',
-  //     data: [4.8, 4.5, 4.3, 4.1, 4.0],
-  //     backgroundColor: 'rgba(75, 192, 192, 0.6)',
-  //     borderColor: 'rgba(75, 192, 192, 1)',
-  //     borderWidth: 1
-  //   }]
-  // };
+  user: any;
 
-  // Initialize the chart after the view is loaded
-  // ngAfterViewInit(): void {
-  //   const ctx = (document.getElementById('topRatedChart') as HTMLCanvasElement).getContext('2d');
-  //   if (ctx) {
-  //     new Chart(ctx, {
-  //       type: 'bar',
-  //       data: this.topRatedRecipes,
-  //       options: {
-  //         scales: {
-  //           y: {
-  //             beginAtZero: true,
-  //             max: 5
-  //           }
-  //         }
-  //       }
-  //     });
-  //   }
-  // }
+  constructor(private recipeService : RecipeService) {}
+
+  ngOnInit() {
+    const userId = this.recipeService.userId; 
+    this.recipeService.getUserById(userId).subscribe(
+      (data) => {
+        this.user = data;
+      },
+      (error) => {
+        console.error('Error fetching user details:', error);
+      }
+    );
+  }
 }
