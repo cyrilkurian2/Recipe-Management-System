@@ -10,6 +10,7 @@ import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
+    { path: '', redirectTo: 'home-page', pathMatch: 'full' },
   { path: 'home-page', component: HomepageComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'recipe/:id', component: ViewRecipeComponent, canActivate: [AuthGuard] },
