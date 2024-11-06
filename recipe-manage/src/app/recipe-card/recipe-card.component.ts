@@ -87,11 +87,29 @@ export class RecipeCardComponent implements OnInit {
     this.router.navigate(['/recipe', recipeId]);
   }
 
+  // toggleFavourite(recipe: Recipe) {
+  //   recipe.isfav = !recipe.isfav;
+  //   console.log(`Toggled favourite for recipe ${recipe.recipeId}, new state: ${recipe.isfav}`);
+  //   // Add any additional favorite handling logic here
+  // }
+
+
   toggleFavourite(recipe: Recipe) {
-    recipe.isfav = !recipe.isfav;
-    console.log(`Toggled favourite for recipe ${recipe.recipeId}, new state: ${recipe.isfav}`);
-    // Add any additional favorite handling logic here
-  }
+  this.recipeService.addRemoveFavourite(recipe.recipeId).subscribe(
+    (response) => {
+      recipe.isfav = !recipe.isfav; // Toggle the favorite status on success
+      console.log(`Toggled favourite for recipe ${recipe.recipeId}, new state: ${recipe.isfav}`);
+    },
+    (error) => {
+      console.error(`Failed to toggle favourite for recipe ${recipe.recipeId}:`, error);
+    }
+  );
+}
+
+
+
+
+
 
   deleteRecipe(recipeId: number) {
     console.log(`Deleted recipe ${recipeId}`);

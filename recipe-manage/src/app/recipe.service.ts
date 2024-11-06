@@ -64,8 +64,8 @@ export class RecipeService {
   }
 
   // Favourite APIs
-  addRemoveFavourite(recipeId: string): Observable<any> {
-    return this.http.post(`${this.baseUrl}/addRemoveFavourite`, { recipeId }, { headers: this.getHeaders() });
+  addRemoveFavourite(recipeId: number): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/AddRemoveFavourite`, { recipeId }, { headers: this.getHeaders() });
   }
 
   getFavourites(): Observable<any> {
