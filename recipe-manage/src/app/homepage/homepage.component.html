@@ -4,9 +4,11 @@
   <div class="justify-content-center text-light center">
     <h1>Welcome to Recipe-Manager</h1>
     <p>Explore the recipes</p>
-    <form class="navbar-form navbar-left">
-      <input type="text" class="form-control col-lg-8" placeholder="Search" />
-      <button type="button" class="btn mt-3 btn-primary">Search Recipe</button>
+    <form class="navbar-form navbar-left" (ngSubmit)="onSearch()">
+      <!-- <input type="text" class="form-control col-lg-8" placeholder="Search" /> -->
+      <input type="text" class="form-control col-lg-8" placeholder="Search" [(ngModel)]="searchQuery" name="searchQuery" />
+
+      <button type="submit" class="btn mt-3 btn-primary">Search Recipe</button>
     </form>
   </div>
 </div>

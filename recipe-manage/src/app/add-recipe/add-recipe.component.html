@@ -28,6 +28,16 @@
         <label for="description" class="form-label">Recipe Description</label>
         <textarea class="form-control" id="description" [(ngModel)]="recipeData.RecipeDescription" name="description" rows="3" required></textarea>
       </div>
+
+
+      <!-- Image Upload -->
+      <div class="mb-3">
+        <label for="recipeImage" class="form-label">Recipe Image</label>
+        <input type="file" class="form-control" id="recipeImage" (change)="onImageUpload($event)">
+      </div>
+
+
+
   
       <!-- Ingredients -->
       <div class="mb-3">
@@ -50,6 +60,18 @@
           </li>
         </ul>
       </div>
+
+
+
+      <div class="mb-3">
+        <label for="category" class="form-label">Select Category</label>
+        <select class="form-select" id="category" [(ngModel)]="recipeData.categoryId" name="category" required>
+          <option value="1">Breakfast</option>
+          <option value="2">Lunch</option>
+          <option value="3">Dinner</option>
+        </select>
+      </div>
+      
       
 
       <!-- Steps to Prepare -->
