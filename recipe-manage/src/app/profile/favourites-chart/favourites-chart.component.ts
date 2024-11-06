@@ -50,7 +50,7 @@ export class FavouritesChartComponent implements OnInit {
 
   // Fetch top 5 favourite recipes and update chart
   getTop5FavouriteRecipes() {
-    const userId = 1;  // Replace with dynamic user ID
+    const userId = this.recipeService.userId;  
     this.recipeService.getTop5FavouriteRecipes(userId).subscribe({
       next: (response) => {
 
