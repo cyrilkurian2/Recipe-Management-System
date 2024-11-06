@@ -61,30 +61,16 @@ export class RecipeService {
   }
 
   viewRecipeByCategory(categoryName: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/api/ViewAllRecipe/categoryName=${categoryName}`, { headers: this.getHeaders() });
+    return this.http.get(`${this.baseUrl}/viewAllRecipe/categoryName=${categoryName}`, { headers: this.getHeaders() });
   }
 
   // Favourite APIs
-  // addRemoveFavourite(recipeId: number): Observable<any> {
-  //   return this.http.post(`${this.baseUrl}/api/AddRemoveFavourite`, { recipeId }, { headers: this.getHeaders() });
-  // }
-
-  addRemoveFavourite(userId: number, recipeId: number): Observable<any> {
-    return this.http.post(
-      `${this.baseUrl}/api/AddRemoveFavourite`,
-      { userId, recipeId }, // Include userId in the payload
-      { headers: this.getHeaders() }
-    );
+  addRemoveFavourite(recipeId: number): Observable<any> {
+    return this.http.post(`${this.baseUrl}/api/AddRemoveFavourite`, { recipeId }, { headers: this.getHeaders() });
   }
 
-  // getFavourites(): Observable<any> {
-  //   return this.http.get(`${this.baseUrl}/getFavourites`, { headers: this.getHeaders() });
-  // }
-
-
-  getFavouritesByUser(userId: number): Observable<any> {
-    console.log(userId);
-    return this.http.get(`${this.baseUrl}/api/GetFavourites/${userId}`, { headers: this.getHeaders() });
+  getFavourites(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/getFavourites`, { headers: this.getHeaders() });
   }
 
   // Search
@@ -133,12 +119,15 @@ export class RecipeService {
   }
 
 
-
-
-
+  //top5
   getTop5FavouriteRecipes(userId: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/api/recipes/Top5Recipes?userId=${userId}`);
   }
+
+
+
+
+
 
 
 
