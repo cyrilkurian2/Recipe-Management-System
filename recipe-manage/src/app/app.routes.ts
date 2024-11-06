@@ -7,30 +7,21 @@ import { LoginComponent } from './user/login/login.component';
 import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 import { FavouriteComponent } from './favourite/favourite.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
-
-
-
-
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-    // { path:'user', component: UserComponent},
-    { path:'',redirectTo: 'login',pathMatch: 'full'},
-    { path:'home-page', component: HomepageComponent },
-    { path:'profile', component: ProfileComponent},
-    { path: 'recipe/:id', component: ViewRecipeComponent },
-    { path: 'favourite', component: FavouriteComponent},
-    { path: 'add-recipe', component: AddRecipeComponent},
-
-    { 
-        path: 'user', 
-        component: UserComponent,
-        children: [
-            { path: '', redirectTo: 'login', pathMatch: 'full' }, 
-            { path: 'login', component: LoginComponent },
-            { path: 'signup', component: RegistrationComponent }
-        ]
-    },
-
-    
-
+  { path: 'home-page', component: HomepageComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'recipe/:id', component: ViewRecipeComponent, canActivate: [AuthGuard] },
+  { path: 'favourite', component: FavouriteComponent, canActivate: [AuthGuard] },
+  { path: 'add-recipe', component: AddRecipeComponent, canActivate: [AuthGuard] },
+  {
+    path: 'user',
+    component: UserComponent,
+    children: [
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
+      { path: 'login', component: LoginComponent },
+      { path: 'signup', component: RegistrationComponent }
+    ]
+  },
 ];
