@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../recipe.service';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { NgModule } from '@angular/core';
@@ -7,13 +7,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
   selector: 'app-edit-recipe',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss'],
   standalone: true,
-  imports:[CommonModule,FormsModule]
+  imports: [CommonModule, FormsModule]
 })
 export class EditRecipeComponent implements OnInit {
   recipeId!: string;
@@ -23,6 +22,7 @@ export class EditRecipeComponent implements OnInit {
     duration: '',
     categoryId: null,
     recipeSteps: '',
+    isComplete: false // Default is 'false' for draft
   };
   categories = [
     { categoryId: 1, categoryName: 'Breakfast' },
@@ -58,18 +58,24 @@ export class EditRecipeComponent implements OnInit {
     });
   }
 
-  onImageUpload(event: Event): void {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      // Handle file upload
-      // You may convert the file to a base64 string or upload it as needed
-    }
+  // Save as Draft - Sets isComplete to false
+  saveAsDraft(): void {
+    this.recipeData.isComplete = false; // Draft state
+    this.updateRecipe();
   }
 
+  // On Submit - Sets isComplete to true
   onSubmit(): void {
+    this.recipeData.isComplete = true; // Mark as complete
+    this.updateRecipe();
+  }
+
+  // Function to update the recipe data (both Save as Draft and Submit use this)
+  updateRecipe(): void {
     this.recipeService.updateRecipe(this.recipeId, this.recipeData).subscribe({
       next: () => {
-        alert('Recipe updated successfully.');
+        const action = this.recipeData.isComplete ? 'submitted' : 'saved as draft';
+        alert(`Recipe ${action} successfully.`);
         this.router.navigate(['/profile']);
       },
       error: (error) => {
