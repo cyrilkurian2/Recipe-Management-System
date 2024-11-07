@@ -16,13 +16,13 @@ interface CategoryDTO {
 interface Recipe {
   recipeId: number;
   recipeTitle: string;
-  imageUrl: string;
   recipeDescription: string;
   duration: string;
   //rating: number;
   favouritesCount: number;
   isfav: boolean;
   categoryDTO: CategoryDTO;
+  recipeImage: string;
 }
 
 @Component({
@@ -66,7 +66,6 @@ export class RecipeCardComponent implements OnInit {
       (data) => {
         this.recipes = data.map((recipe: any) => ({
           ...recipe,
-          imageUrl: 'https://d.img.vision/recipe-management-system/chicken_briyani.jpg' // Hardcoded image URL
         }));
       }
     );
@@ -112,7 +111,7 @@ export class RecipeCardComponent implements OnInit {
         this.recipes = data.map((recipe: any) => ({
           recipeId: recipe.recipeId,
           recipeTitle: recipe.recipeTitle,
-          imageUrl: 'https://d.img.vision/recipe-management-system/chicken_briyani.jpg', // Hardcoded image URL
+          recipeImage: `data:image/jpeg;base64,${recipe.recipeImage}`,
           recipeDescription: recipe.recipeDescription,
           duration: recipe.duration,
           favouritesCount: recipe.favouritesCount,
@@ -141,7 +140,7 @@ export class RecipeCardComponent implements OnInit {
         this.recipes = data.recipes.map((recipe: any) => ({
           recipeId: recipe.recipeId,
           recipeTitle: recipe.recipeTitle,
-          imageUrl: 'https://d.img.vision/recipe-management-system/chicken_briyani.jpg', // Optional hardcoded image URL
+          recipeImage: `data:image/jpeg;base64,${recipe.recipeImage}`,
           recipeDescription: recipe.recipeDescription,
           duration: recipe.duration,
           favouritesCount: recipe.favouritesCount,
@@ -162,7 +161,7 @@ export class RecipeCardComponent implements OnInit {
         // Set a hardcoded imageUrl for each recipe
         this.recipes = response.map((recipe: Recipe) => ({
           ...recipe,
-          imageUrl: 'https://d.img.vision/recipe-management-system/chicken_briyani.jpg' // Hardcoded image URL
+          recipeImage: `data:image/jpeg;base64,${recipe.recipeImage}`,
         }));
       },
       (error) => {
@@ -174,17 +173,36 @@ export class RecipeCardComponent implements OnInit {
 
 
 
+  //=======================================
+
+
+
+
+  // loadRecipes(): void {
+  //   this.recipeService.viewAllRecipes().subscribe(
+  //     // (data) => {
+  //     //   this.recipes = data;
+  //     // },
+  //     (data: Recipe[]) => {
+  //       // Set hardcoded imageUrl for each recipe
+  //       this.recipes = data.map(recipe => ({
+  //         ...recipe,
+  //         // imageUrl: 'https://picsum.photos/id/237/200' // Hardcoded image URL
+  //         imageUrl: 'https://d.img.vision/recipe-management-system/chicken_briyani.jpg'
+  //       }));
+  //     },
+  //     (error) => {
+  //       console.error('Failed to fetch recipes:', error);
+  //     }
+  //   );
+  // }
+
   loadRecipes(): void {
     this.recipeService.viewAllRecipes().subscribe(
-      // (data) => {
-      //   this.recipes = data;
-      // },
       (data: Recipe[]) => {
-        // Set hardcoded imageUrl for each recipe
         this.recipes = data.map(recipe => ({
           ...recipe,
-          // imageUrl: 'https://picsum.photos/id/237/200' // Hardcoded image URL
-          imageUrl: 'https://d.img.vision/recipe-management-system/chicken_briyani.jpg'
+          recipeImage: `data:image/jpeg;base64,${recipe.recipeImage}`,
         }));
       },
       (error) => {
@@ -192,6 +210,24 @@ export class RecipeCardComponent implements OnInit {
       }
     );
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //================================
+
+
 
   // loadAvailableIngredients() {
   //   this.recipeService.getAllIngredients().subscribe({

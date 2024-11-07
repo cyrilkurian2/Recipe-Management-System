@@ -3,7 +3,7 @@
   <div class="row">
     <div *ngFor="let recipe of filteredRecipes" class="col-md-4 mb-3">
       <div class="card recipe-card">
-        <img class="card-img-top recipe-image" [src]="recipe.imageUrl" alt="Recipe Photo" />
+        <img class="card-img-top recipe-image" [src]="recipe.recipeImage" alt="Recipe Photo" style="height: 300px; object-fit: cover;"/>
         <div class="card-body">
           <h5 class="card-title">{{ recipe.recipeTitle }}</h5>
           <p class="card-text">Category: {{ recipe.categoryDTO.categoryName }}</p> <!-- Access category name -->

@@ -33,7 +33,8 @@ export class AddRecipeComponent implements OnInit {
     isComplete: false,
     categoryId: 0,
     userId: 0,
-    RecipeImage: ''
+    RecipeImage: '',
+    RecipeSteps: ''
   };
 
   
