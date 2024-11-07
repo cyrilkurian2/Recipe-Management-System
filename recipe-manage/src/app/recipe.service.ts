@@ -70,9 +70,9 @@ export class RecipeService {
     return this.http.post(`${this.baseUrl}/api/AddRecipe`, data, { headers: this.getHeaders() });
   }
 
-  updateRecipe(recipeId: string, data: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/addRecipe/${recipeId}`, data, { headers: this.getHeaders() });
-  }
+  // updateRecipe(recipeId: string, data: any): Observable<any> {
+  //   return this.http.put(`${this.baseUrl}/addRecipe/${recipeId}`, data, { headers: this.getHeaders() });
+  // }
 
   deleteRecipe(recipeId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/api/DeleteRecipeById`, {
@@ -205,6 +205,12 @@ export class RecipeService {
 
   getUserById(userId: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/api/AddUser/${userId}`, { headers: this.getHeaders(), params: { userId } });
+  }
+
+  updateRecipe(recipeId: string, recipeData: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/api/AddRecipe/${recipeId}`, recipeData, {
+      headers: this.getHeaders()
+    });
   }
   
 }

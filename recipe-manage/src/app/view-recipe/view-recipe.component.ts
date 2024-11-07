@@ -34,11 +34,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RecipeService } from '../recipe.service'; // Adjust the path as necessary
 import { forkJoin, Observable } from 'rxjs';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-view-recipe',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,NavbarComponent],
   templateUrl: './view-recipe.component.html',
   styleUrls: ['./view-recipe.component.scss']
 })
@@ -84,6 +85,17 @@ export class ViewRecipeComponent implements OnInit {
       this.fetchRecipeWithIngredients(recipeId); // Fetch the recipe and its ingredients
     }
   }
+
+
+
+  get recipeStepsArray(): string[] {
+    return this.recipe?.recipeSteps ? this.recipe.recipeSteps.split(/\d\.\s*/) : [];
+  }
+
+
+
+
+
 
   fetchRecipeWithIngredients(recipeId: string) {
     forkJoin({

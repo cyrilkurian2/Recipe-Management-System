@@ -31,9 +31,14 @@ export class HomepageComponent {
     if (this.searchQuery) {
       this.recipeService.searchRecipes(this.searchQuery).subscribe(
         (data) => {
-          // Pass the search results to RecipeCardComponent
-          this.recipeService.updateSearchResults(data);
+          const recipesWithImage = data.map(recipe => ({
+            ...recipe,
+            recipeImage: `data:image/jpeg;base64,${recipe.recipeImage}`,
+          }));
+  
+          this.recipeService.updateSearchResults(recipesWithImage);
         },
+        
         (error) => {
           console.error('Failed to search recipes:', error);
         }

@@ -1,0 +1,44 @@
+<div class="container my-5" style="width: 60rem;">
+    <h2 class="text-center mb-4">Edit Recipe</h2>
+    <form (ngSubmit)="onSubmit()" #editRecipeForm="ngForm" ngNativeValidate>
+  
+      <!-- Recipe Title -->
+      <div class="mb-3">
+        <label for="recipeTitle" class="form-label">Recipe Title</label>
+        <input type="text" class="form-control" id="recipeTitle" [(ngModel)]="recipeData.recipeTitle" name="title" required>
+      </div>
+  
+      <!-- Duration -->
+      <div class="mb-3">
+        <label for="duration" class="form-label">Duration (minutes)</label>
+        <input type="text" class="form-control" id="duration" [(ngModel)]="recipeData.duration" name="duration" required>
+      </div>
+  
+      <!-- Description -->
+      <div class="mb-3">
+        <label for="description" class="form-label">Recipe Description</label>
+        <textarea class="form-control" id="description" [(ngModel)]="recipeData.recipeDescription" name="description" rows="3" required></textarea>
+      </div>
+  
+    
+  
+      <!-- Category Selection -->
+      <div class="mb-3">
+        <label for="category" class="form-label">Select Category</label>
+        <select class="form-select" id="category" [(ngModel)]="recipeData.categoryId" name="category" required>
+          <option *ngFor="let category of categories" [value]="category.categoryId">{{ category.categoryName }}</option>
+        </select>
+      </div>
+  
+      <!-- Steps to Prepare -->
+      <div class="mb-3">
+        <label for="recipeSteps" class="form-label">Steps to Prepare</label>
+        <textarea class="form-control" id="recipeSteps" [(ngModel)]="recipeData.recipeSteps" name="steps" rows="5" required></textarea>
+      </div>
+  
+      <!-- Buttons -->
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+      </div>
+    </form>
+  </div>

@@ -261,7 +261,7 @@ export class RecipeCardComponent implements OnInit {
 
   toggleFavourite(recipe: Recipe) {
     const userId = this.recipeService.userId; // Access userId from RecipeService
-    console.log("hiiiiii"+ userId);
+    // console.log("hiiiiii"+ userId);
     this.recipeService.addRemoveFavourite(userId, recipe.recipeId).subscribe(
       (response) => {
         recipe.isfav = !recipe.isfav; // Toggle the favorite status on success
@@ -307,6 +307,7 @@ export class RecipeCardComponent implements OnInit {
 
   editRecipe(recipeId: number) {
     console.log(`Editing recipe ${recipeId}`);
+    this.router.navigate(['/recipe/edit', recipeId]);
     // Add edit logic here
   }
 }

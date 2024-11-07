@@ -8,6 +8,7 @@ import { ViewRecipeComponent } from './view-recipe/view-recipe.component';
 import { FavouriteComponent } from './favourite/favourite.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 import { AuthGuard } from './guards/auth.guard';
+import { EditRecipeComponent } from './edit/edit.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home-page', pathMatch: 'full' },
@@ -16,6 +17,7 @@ export const routes: Routes = [
   { path: 'recipe/:id', component: ViewRecipeComponent, canActivate: [AuthGuard] },
   { path: 'favourite', component: FavouriteComponent, canActivate: [AuthGuard] },
   { path: 'add-recipe', component: AddRecipeComponent, canActivate: [AuthGuard] },
+  { path: 'recipe/edit/:id',component: EditRecipeComponent, canActivate: [AuthGuard]},
   {
     path: 'user',
     component: UserComponent,
