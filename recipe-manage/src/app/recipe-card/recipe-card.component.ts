@@ -115,7 +115,7 @@ export class RecipeCardComponent implements OnInit {
           recipeDescription: recipe.recipeDescription,
           duration: recipe.duration,
           favouritesCount: recipe.favouritesCount,
-          isfav: recipe.favouritesCount > 0, // Assuming favorite if it has count > 0
+          isfav: recipe.favouritesCount, // Assuming favorite if it has count > 0
           categoryDTO: recipe.categoryDTO
         }));
       },

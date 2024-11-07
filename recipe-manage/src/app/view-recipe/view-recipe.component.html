@@ -2,7 +2,7 @@
    <div *ngIf="recipe; else loading" class="container m-5 d-flex justify-content-center">
     <div class="card" style="width: 60rem;">
       <div class="image-crop">
-        <img [src]="recipe.imageUrl" class="card-img-top" alt="Recipe Image">
+        <img [src]="recipe.recipeImage" class="card-img-top" alt="Recipe Image">
       </div>
       <div class="card-body">
         <h2 class="card-title text-center">{{ recipe.recipeTitle }}</h2>

@@ -106,7 +106,7 @@ export class ViewRecipeComponent implements OnInit {
         this.recipe = {
           ...recipe,
           ingredients: ingredients, 
-          imageUrl: 'https://d.img.vision/recipe-management-system/chicken_briyani.jpg' 
+          recipeImage: `data:image/jpeg;base64,${recipe.recipeImage}`, 
         };
       },
       (error) => {
