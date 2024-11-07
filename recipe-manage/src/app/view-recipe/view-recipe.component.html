@@ -6,6 +6,7 @@
       </div>
       <div class="card-body">
         <h2 class="card-title text-center">{{ recipe.recipeTitle }}</h2>
+        <h6 class="text-start">Recipe Added By: {{ recipe.user.name }}</h6>
         <!-- <p><strong>Rating:</strong> {{ recipe.rating }} / 5</p> -->
         <p><strong>Likes:</strong> {{ recipe.favouritesCount }}</p>
         <p>Category: {{recipe.categoryDTO.categoryName}}</p>
