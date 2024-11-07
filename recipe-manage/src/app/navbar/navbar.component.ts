@@ -23,8 +23,8 @@ export class NavbarComponent {
 
 
   logout() {
-    this.recipeService.userId = 0; // Set userId to 0
-    this.router.navigate(['/user/login']); // Redirect to login page
+    this.recipeService.userId = 0; 
+    this.router.navigate(['/user/login']); 
   }
   
 }

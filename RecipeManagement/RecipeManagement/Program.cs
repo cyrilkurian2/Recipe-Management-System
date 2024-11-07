@@ -12,16 +12,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: "_myAllowSpecificOrigins",
-                      builder =>
-                      {
-                          builder.AllowAnyOrigin()
-                                  .AllowAnyMethod()
-                                  .AllowAnyHeader();
-                      });
-});
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy(name: "_myAllowSpecificOrigins",
+//                      builder =>
+//                      {
+//                          builder.AllowAnyOrigin()
+//                                  .AllowAnyMethod()
+//                                  .AllowAnyHeader();
+//                      });
+//});
 
 
 builder.Services.AddDbContext<RecipeManagementContext>(x =>
@@ -45,6 +45,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors(origin=>origin.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
 app.UseHttpsRedirection();
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../recipe.service';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { FormsModule } from '@angular/forms'; 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -22,7 +22,7 @@ export class EditRecipeComponent implements OnInit {
     duration: '',
     categoryId: null,
     recipeSteps: '',
-    isComplete: false // Default is 'false' for draft
+    isComplete: true
   };
   categories = [
     { categoryId: 1, categoryName: 'Breakfast' },
@@ -58,19 +58,17 @@ export class EditRecipeComponent implements OnInit {
     });
   }
 
-  // Save as Draft - Sets isComplete to false
+  
   saveAsDraft(): void {
     this.recipeData.isComplete = false; // Draft state
     this.updateRecipe();
   }
 
-  // On Submit - Sets isComplete to true
   onSubmit(): void {
     this.recipeData.isComplete = true; // Mark as complete
     this.updateRecipe();
   }
 
-  // Function to update the recipe data (both Save as Draft and Submit use this)
   updateRecipe(): void {
     this.recipeService.updateRecipe(this.recipeId, this.recipeData).subscribe({
       next: () => {

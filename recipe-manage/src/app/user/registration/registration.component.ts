@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { RecipeService} from '../../recipe.service'; // Adjust the import according to your service's path
+import { RecipeService} from '../../recipe.service'; 
 import { Router, RouterModule, Routes} from '@angular/router';
 
 
@@ -54,12 +54,12 @@ export class RegistrationComponent {
           console.log('User registered successfully:', response);
           alert("User registered successfully");
           
-          // Handle successful registration (e.g., navigate to login, show success message)
+          
           this.router.navigate(['user/login']);
         },
         error: (error: any) => {
           console.error('Error during registration:', error);
-          // Handle error (e.g., show error message)
+          
         }
       });
     } else {

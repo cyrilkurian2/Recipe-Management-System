@@ -46,21 +46,15 @@ export class AddRecipeComponent implements OnInit {
 
 
   onImageUpload(event: any): void {
-    const file = event.target.files[0]; // Get the first file (if multiple files are allowed, you can handle them here)
+    const file = event.target.files[0];
     
     if (file) {
       const reader = new FileReader();
       
-      // reader.onloadend = () => {
-      //   // Once the file is read, assign the Base64 string to RecipeImage
-      //   this.recipeData.RecipeImage = reader.result as string;
-      // };
-
-
       reader.onload = (e: any) => {
         // Extract base64 without the header
         const base64Image = e.target.result.split(',')[1]; // Split and take only the base64 part
-        this.recipeData.RecipeImage = base64Image; // Store the base64 image string in recipeData
+        this.recipeData.RecipeImage = base64Image; 
       };
 
       reader.readAsDataURL(file);  // This converts the image to Base64
@@ -83,18 +77,6 @@ export class AddRecipeComponent implements OnInit {
     });
   }
 
-  // onIngredientSearch(query: string) {
-  //   if (query) {
-  //     this.ingredientSuggestions = this.availableIngredients
-  //       .map((ingredient) => ingredient.ingredientsName)
-  //       .filter((name) => name.toLowerCase().includes(query.toLowerCase()));
-  //   } else {
-  //     this.ingredientSuggestions = [];
-  //   }
-  // }
-
-
-
 
   onIngredientSearch(query: string) {
     if (query) {
@@ -107,91 +89,6 @@ export class AddRecipeComponent implements OnInit {
     }
   }
   
-
-
-
-
-
-
-
-
-
-
-  // selectIngredient(ingredientsName: string) {
-  //   const existingIngredient = this.availableIngredients.find(i => i.ingredientsName === ingredientsName);
-    
-  //   if (existingIngredient) {
-  //     this.addIngredientToList(existingIngredient);
-  //   } else {
-  //     const quantity = prompt(`Enter quantity for new ingredient "${ingredientsName}":`, "1 unit");
-  //     if (quantity) {
-  //       this.recipeService.addIngredient({ ingredientsName }).subscribe({
-  //         next: (newIngredient) => {
-  //           // Add the new ingredient to available ingredients and selectedIngredients
-  //           this.availableIngredients.push(newIngredient);
-  //           this.temporaryIngredientIds.push(newIngredient.ingredientId); // Track for potential deletion
-  //           this.selectedIngredients.push({ 
-  //             ingredientId: newIngredient.ingredientId, 
-  //             ingredientsName, 
-  //             quantity 
-  //           });
-  //         },
-  //         error: (err) => {
-  //           console.error(`Failed to add new ingredient "${ingredientsName}": ${err.message}`);
-  //         }
-  //       });
-  //     }
-  //     this.ingredientSearchQuery = '';
-  //     this.ingredientSuggestions = [];
-  //   }
-  // }
-
-
-
-
-
-
-
-
-
-  // selectIngredient(ingredientsName: string) {
-  //   const existingIngredient = this.availableIngredients.find(i => i.ingredientsName === ingredientsName);
-    
-  //   if (existingIngredient) {
-  //     this.addIngredientToList(existingIngredient);
-  //   } else {
-  //     const quantity = prompt(`Enter quantity for new ingredient "${ingredientsName}":`, "1 unit");
-  //     if (quantity) {
-  //       this.recipeService.addIngredient({ ingredientsName }).subscribe({
-  //         next: (newIngredient) => {
-  //           // Add the new ingredient to availableIngredients and selectedIngredients
-  //           this.availableIngredients.push(newIngredient);
-  //           this.temporaryIngredientIds.push(newIngredient.ingredientId);
-  //           this.selectedIngredients.push({ 
-  //             ingredientId: newIngredient.ingredientId, 
-  //             ingredientsName, 
-  //             quantity 
-  //           });
-  
-  //           // Update auto-suggestions to include the new ingredient
-  //           this.ingredientSuggestions = this.availableIngredients
-  //             .map(ingredient => ingredient.ingredientsName)
-  //             .filter(name => 
-  //               name.toLowerCase().includes(this.ingredientSearchQuery.toLowerCase()));
-  //         },
-  //         error: (err) => {
-  //           console.error(`Failed to add new ingredient "${ingredientsName}": ${err.message}`);
-  //         }
-  //       });
-  //     }
-  //     this.ingredientSearchQuery = '';
-  //   }
-  // }
-  
-
-
-
-
 
 
 
@@ -214,7 +111,6 @@ export class AddRecipeComponent implements OnInit {
               quantity 
             });
   
-            // Ensure ingredientSearchQuery is defined before applying filter
             this.ingredientSuggestions = this.availableIngredients
               .map(ingredient => ingredient.ingredientsName)
               .filter(name => 
@@ -231,13 +127,6 @@ export class AddRecipeComponent implements OnInit {
     }
   }
   
-
-
-
-
-
-
-
 
 
 

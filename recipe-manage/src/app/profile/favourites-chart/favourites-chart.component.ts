@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RecipeService } from '../../recipe.service';  // Ensure correct path for your service
+import { RecipeService } from '../../recipe.service'; 
 import { Chart, registerables } from 'chart.js';
 
 Chart.register(...registerables);
@@ -16,10 +16,10 @@ export class FavouritesChartComponent implements OnInit {
   barChart: any = {
     type: 'bar',  // Set the chart type to bar
     data: {
-      labels: [],  // Recipe titles will be placed here
+      labels: [],  
       datasets: [{
         label: 'Favourite Count',
-        data: [],  // Favourite counts will be placed here
+        data: [],  
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -58,8 +58,8 @@ export class FavouritesChartComponent implements OnInit {
 
         if (response && response.length > 0) {
           // Map the response to chart data
-          this.barChart.data.labels = response.map((recipe: any) => recipe.recipeTitle);  // Set recipe titles
-          this.barChart.data.datasets[0].data = response.map((recipe: any) => recipe.favouriteCount);  // Set favourite counts
+          this.barChart.data.labels = response.map((recipe: any) => recipe.recipeTitle);  
+          this.barChart.data.datasets[0].data = response.map((recipe: any) => recipe.favouriteCount);  
           // Create the bar chart
           this.createCharts();
         }

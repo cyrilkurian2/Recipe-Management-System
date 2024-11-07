@@ -1,40 +1,44 @@
+<div *ngIf="loading" class="loading-overlay">
+  <div class="spinner"></div>
+</div>
+
+
+
+
+
 <!-- Recipe Cards -->
 <div class="mt-5">
+  <div *ngIf="!loading">
   <div class="row">
-    <div *ngFor="let recipe of filteredRecipes" class="col-md-4 mb-3">
-      <div class="card recipe-card">
-        <img class="card-img-top recipe-image" [src]="recipe.recipeImage" alt="Recipe Photo" style="height: 300px; object-fit: cover;"/>
-        <div class="card-body">
-          <h5 class="card-title">{{ recipe.recipeTitle }}</h5>
-          <p class="card-text">Category: {{ recipe.categoryDTO.categoryName }}</p> <!-- Access category name -->
-          <p class="card-text">Description: {{ recipe.recipeDescription }}</p> <!-- Recipe description -->
-          <p class="card-text">Duration: {{ recipe.duration }}</p> <!-- Cooking duration -->
-          <!-- <p class="card-text">ID: {{ recipe.recipeId }}</p> -->
-          <!-- <p class="card-text">Average Rating: {{ recipe.rating }} / 5</p> -->
-          
-
-          <!-- Conditional buttons based on isProfileView -->
-
-          <!-- <div *ngIf="!isProfileView">
-            <button (click)="viewRecipe(recipe.id)" class="btn btn-primary">View</button>
-            <button (click)="markFavourite(recipe.id)" class="btn btn-primary ms-3">Favourite</button>
-          </div> -->
-
-          <div *ngIf="!isProfileView">
-            <button (click)="viewRecipe(recipe.recipeId)" class="btn btn-primary">View</button>
-            <button (click)="toggleFavourite(recipe)" class="btn btn-icon ms-3">
-              <i [class]="recipe.isfav ? 'fas fa-heart' : 'far fa-heart'"
-                 [ngClass]="{'favourite': recipe.isfav}">
-              </i>
-            </button>
-          </div>
+      <div *ngFor="let recipe of filteredRecipes" class="col-md-4 mb-3">
+        <div class="card recipe-card">
+          <img class="card-img-top recipe-image" [src]="recipe.recipeImage" alt="Recipe Photo"
+            style="height: 300px; object-fit: cover;" />
+          <div class="card-body">
+            <h5 class="card-title">{{ recipe.recipeTitle }}</h5>
+            <p class="card-text">Category: {{ recipe.categoryDTO.categoryName }}</p> <!-- Access category name -->
+            <p class="card-text">Description: {{ recipe.recipeDescription }}</p> <!-- Recipe description -->
+            <p class="card-text">Duration: {{ recipe.duration }}</p> <!-- Cooking duration -->
+            <!-- <p class="card-text">ID: {{ recipe.recipeId }}</p> -->
+            <!-- <p class="card-text">Average Rating: {{ recipe.rating }} / 5</p> -->
 
 
-          <div *ngIf="isProfileView" class="profile-actions mt-3">
-            <button (click)="viewRecipe(recipe.recipeId)" class="btn btn-primary">View</button>
-            <button (click)="editRecipe(recipe.recipeId)" class="btn btn-warning ms-3">Edit</button>
-            <button (click)="deleteRecipe(recipe.recipeId)" class="btn btn-danger ms-3">Delete</button>
-            <p class="favourites-count mt-2">Favourited by {{ recipe.favouritesCount }} users</p>
+
+            <div *ngIf="!isProfileView">
+              <button (click)="viewRecipe(recipe.recipeId)" class="btn btn-primary">View</button>
+              <button (click)="toggleFavourite(recipe)" class="btn btn-icon ms-3">
+                <i [class]="recipe.isfav ? 'fas fa-heart' : 'far fa-heart'" [ngClass]="{'favourite': recipe.isfav}">
+                </i>
+              </button>
+            </div>
+
+
+            <div *ngIf="isProfileView" class="profile-actions mt-3">
+              <button (click)="viewRecipe(recipe.recipeId)" class="btn btn-primary">View</button>
+              <button (click)="editRecipe(recipe.recipeId)" class="btn btn-warning ms-3">Edit</button>
+              <button (click)="deleteRecipe(recipe.recipeId)" class="btn btn-danger ms-3">Delete</button>
+              <p class="favourites-count mt-2">Favourited by {{ recipe.favouritesCount }} users</p>
+            </div>
           </div>
         </div>
       </div>

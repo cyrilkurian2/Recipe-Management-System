@@ -18,7 +18,6 @@ interface Recipe {
   recipeTitle: string;
   recipeDescription: string;
   duration: string;
-  //rating: number;
   favouritesCount: number;
   isfav: boolean;
   categoryDTO: CategoryDTO;
@@ -33,29 +32,16 @@ interface Recipe {
   styleUrl: './recipe-card.component.scss'
 })
 export class RecipeCardComponent implements OnInit {
-  @Input() isProfileView: boolean = false; // Input to determine context
+  @Input() isProfileView: boolean = false; 
   @Input() selectedCategory: string | null = null;
-  @Input() showFavoritesOnly: boolean = false; // New input to show only favorites
+  @Input() showFavoritesOnly: boolean = false; 
 
   recipes: Recipe[] = [];
+  loading: boolean = true;
 
   private searchResultsSubscription: Subscription | null = null;
 
   constructor(private http: HttpClient, private router: Router,private recipeService: RecipeService) {}
-
-
-
-  // ngOnInit(): void {
-  //   this.loadRecipes();
-  // }
-
-  // ngOnInit(): void {
-  //   if (this.showFavoritesOnly) {
-  //     this.loadFavoriteRecipes();
-  //   } else {
-  //     this.loadRecipes();
-  //   }
-  // }
 
 
 
@@ -67,6 +53,7 @@ export class RecipeCardComponent implements OnInit {
         this.recipes = data.map((recipe: any) => ({
           ...recipe,
         }));
+        this.loading = false;
       }
     );
 
@@ -92,8 +79,6 @@ export class RecipeCardComponent implements OnInit {
 
 
 
-
-
   ngOnDestroy(): void {
     if (this.searchResultsSubscription) {
       this.searchResultsSubscription.unsubscribe();
@@ -102,10 +87,9 @@ export class RecipeCardComponent implements OnInit {
 
 
 
-
-
   loadProfileRecipes(): void {
-    const userId = this.recipeService.userId; // Access the current user's ID
+    this.loading = true;
+    const userId = this.recipeService.userId; 
     this.recipeService.viewProfileRecipes(userId).subscribe(
       (data) => {
         this.recipes = data.map((recipe: any) => ({
@@ -115,12 +99,14 @@ export class RecipeCardComponent implements OnInit {
           recipeDescription: recipe.recipeDescription,
           duration: recipe.duration,
           favouritesCount: recipe.favouritesCount,
-          isfav: recipe.favouritesCount, // Assuming favorite if it has count > 0
+          isfav: recipe.favouritesCount, 
           categoryDTO: recipe.categoryDTO
         }));
+        this.loading = false; 
       },
       (error) => {
         console.error('Failed to load profile recipes:', error);
+        this.loading = false; 
       }
     );
   }
@@ -128,13 +114,9 @@ export class RecipeCardComponent implements OnInit {
 
 
 
-
-  
-
-
-
   loadFavoriteRecipes(): void {
-    const userId = this.recipeService.userId; // Access the current user's ID
+    this.loading = true;
+    const userId = this.recipeService.userId; 
     this.recipeService.getFavouritesByUser(userId).subscribe(
       (data) => {
         this.recipes = data.recipes.map((recipe: any) => ({
@@ -144,101 +126,55 @@ export class RecipeCardComponent implements OnInit {
           recipeDescription: recipe.recipeDescription,
           duration: recipe.duration,
           favouritesCount: recipe.favouritesCount,
-          isfav: true, // Mark as favorite since it’s from the favorite list
+          isfav: true, 
           categoryDTO: recipe.categoryDTO
         }));
+        this.loading = false; 
       },
       (error) => {
         console.error('Failed to load favorite recipes:', error);
+        this.loading = false; 
       }
     );
   }
 
 
   fetchRecipesByCategory(categoryName: string): void {
+    this.loading = true;
     this.recipeService.viewRecipeByCategory(categoryName).subscribe(
       (response) => {
-        // Set a hardcoded imageUrl for each recipe
         this.recipes = response.map((recipe: Recipe) => ({
           ...recipe,
           recipeImage: `data:image/jpeg;base64,${recipe.recipeImage}`,
         }));
+        this.loading = false;
       },
       (error) => {
         console.error(`Failed to load recipes for category ${categoryName}:`, error);
+        this.loading = false;
       }
     );
   }
   
 
 
-
-  //=======================================
-
-
-
-
-  // loadRecipes(): void {
-  //   this.recipeService.viewAllRecipes().subscribe(
-  //     // (data) => {
-  //     //   this.recipes = data;
-  //     // },
-  //     (data: Recipe[]) => {
-  //       // Set hardcoded imageUrl for each recipe
-  //       this.recipes = data.map(recipe => ({
-  //         ...recipe,
-  //         // imageUrl: 'https://picsum.photos/id/237/200' // Hardcoded image URL
-  //         imageUrl: 'https://d.img.vision/recipe-management-system/chicken_briyani.jpg'
-  //       }));
-  //     },
-  //     (error) => {
-  //       console.error('Failed to fetch recipes:', error);
-  //     }
-  //   );
-  // }
-
   loadRecipes(): void {
+    this.loading = true;
     this.recipeService.viewAllRecipes().subscribe(
       (data: Recipe[]) => {
         this.recipes = data.map(recipe => ({
           ...recipe,
           recipeImage: `data:image/jpeg;base64,${recipe.recipeImage}`,
         }));
+        this.loading = false;
       },
       (error) => {
         console.error('Failed to fetch recipes:', error);
+        this.loading = false;
       }
     );
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //================================
-
-
-
-  // loadAvailableIngredients() {
-  //   this.recipeService.getAllIngredients().subscribe({
-  //     next: (response: { ingredientid: number; ingredientsName: string }[]) => {
-  //       this.availableIngredients = response;
-  //     },
-  //     error: (err) => {
-  //       console.error('Failed to load ingredients:', err);
-  //     }
-  //   });
-  // }
 
   get filteredRecipes() {
     return this.recipes.filter(recipe => {
@@ -252,15 +188,9 @@ export class RecipeCardComponent implements OnInit {
     this.router.navigate(['/recipe', recipeId]);
   }
 
-  // toggleFavourite(recipe: Recipe) {
-  //   recipe.isfav = !recipe.isfav;
-  //   console.log(`Toggled favourite for recipe ${recipe.recipeId}, new state: ${recipe.isfav}`);
-  //   // Add any additional favorite handling logic here
-  // }
-
 
   toggleFavourite(recipe: Recipe) {
-    const userId = this.recipeService.userId; // Access userId from RecipeService
+    const userId = this.recipeService.userId; 
     // console.log("hiiiiii"+ userId);
     this.recipeService.addRemoveFavourite(userId, recipe.recipeId).subscribe(
       (response) => {
@@ -275,23 +205,12 @@ export class RecipeCardComponent implements OnInit {
   
 
 
-
-
-
-  // deleteRecipe(recipeId: number) {
-  //   console.log(`Deleted recipe ${recipeId}`);
-  //   // Add delete logic here
-  // }
-
-
-
-
   deleteRecipe(recipeId: number): void {
     this.recipeService.deleteRecipe(recipeId).subscribe(
       () => {
         alert('Recipe deleted successfully.');
         if (this.isProfileView) {
-          this.loadRecipes(); // Reload recipes if in profile view
+          this.loadRecipes(); 
         }
       },
       (error) => {
@@ -308,6 +227,5 @@ export class RecipeCardComponent implements OnInit {
   editRecipe(recipeId: number) {
     console.log(`Editing recipe ${recipeId}`);
     this.router.navigate(['/recipe/edit', recipeId]);
-    // Add edit logic here
   }
 }

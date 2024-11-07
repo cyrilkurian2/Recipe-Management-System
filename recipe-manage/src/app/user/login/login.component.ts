@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { RecipeService } from '../../recipe.service'; // Adjust the import according to your service's path
+import { RecipeService } from '../../recipe.service'; 
 import { Observable } from 'rxjs';
 
 @Component({
@@ -29,10 +29,9 @@ export class LoginComponent {
     if (this.userForm.valid) {
       const { email, password } = this.userForm.value;
     
-      // Call the login method from the UserService
       this.userService.login({ email, password }).subscribe({
         next: (response) => {
-          const userId = response.userId; // Assuming the API returns userId on successful login
+          const userId = response.userId; 
           console.log('User logged in successfully:', userId);
           
           this.router.navigate(['/home-page']);
@@ -41,7 +40,7 @@ export class LoginComponent {
         },
         error: (error) => {
           console.error('Error during login:', error);
-          alert('Invalid login credentials'); // Display error message for invalid login
+          alert('Invalid login credentials'); 
         }
       });
     }
