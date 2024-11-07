@@ -27,24 +27,67 @@ export class HomepageComponent {
 
 
 
+  // onSearch() {
+  //   if (this.searchQuery) {
+  //     this.recipeService.searchRecipes(this.searchQuery).subscribe(
+  //       (data) => {
+  //         const recipesWithImage = data.map(recipe => ({
+  //           ...recipe,
+  //           recipeImage: `data:image/jpeg;base64,${recipe.recipeImage}`,
+  //         }));
+  
+  //         this.recipeService.updateSearchResults(recipesWithImage);
+  //       },
+        
+  //       (error) => {
+  //         console.error('Failed to search recipes:', error);
+  //       }
+  //     );
+  //   }
+  // }
+
+
+
+
+
+
+
   onSearch() {
-    if (this.searchQuery) {
+    if (this.searchQuery.trim()) {
       this.recipeService.searchRecipes(this.searchQuery).subscribe(
         (data) => {
           const recipesWithImage = data.map(recipe => ({
             ...recipe,
             recipeImage: `data:image/jpeg;base64,${recipe.recipeImage}`,
           }));
-  
           this.recipeService.updateSearchResults(recipesWithImage);
         },
-        
         (error) => {
           console.error('Failed to search recipes:', error);
         }
       );
+    } else {
+      this.recipeService.viewAllRecipes().subscribe(
+        (data) => {
+          const allRecipes = data.map((recipe: { recipeImage: any; }) => ({
+            ...recipe,
+            recipeImage: `data:image/jpeg;base64,${recipe.recipeImage}`,
+          }));
+          this.recipeService.updateSearchResults(allRecipes); 
+        },
+        (error) => {
+          console.error('Failed to load all recipes:', error);
+        }
+      );
     }
   }
+  
+
+
+
+
+
+
 
 
 }

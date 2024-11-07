@@ -18,6 +18,7 @@ export class NavbarComponent {
 
   selectCategory(category: string) {
     this.categorySelected.emit(category);
+    this.router.navigate(['/home-page']);
   }
 
 
