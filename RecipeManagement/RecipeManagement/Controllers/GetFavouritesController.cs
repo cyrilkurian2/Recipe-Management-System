@@ -26,5 +26,14 @@ namespace RecipeManagement.API.Controllers
             }
             return Ok(result); // Return a 200 response with the result
         }
-    }
+        [HttpGet("check")]
+        public async Task<IActionResult> IsFavourite(int userId, int recipeId)
+        {
+            var query = new IsFavouriteQuery(userId, recipeId);
+            bool isFavourite = await _mediator.Send(query);
+
+            return Ok(isFavourite);
+        }
+    
+}
 }
