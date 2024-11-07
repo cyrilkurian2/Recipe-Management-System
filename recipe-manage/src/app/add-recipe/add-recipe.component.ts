@@ -202,9 +202,27 @@ export class AddRecipeComponent implements OnInit {
     });
   }
 
+  // removeIngredient(index: number) {
+  //   this.selectedIngredients.splice(index, 1);
+  // }
+
   removeIngredient(index: number) {
-    this.selectedIngredients.splice(index, 1);
+    console.log("Attempting to remove ingredient at index:", index);
+    if (index >= 0 && index < this.selectedIngredients.length) {
+      console.log("Before deletion:", this.selectedIngredients);
+      this.selectedIngredients.splice(index, 1);
+      console.log("After deletion:", this.selectedIngredients);
+    } else {
+      console.error("Invalid index:", index);
+    }
   }
+
+
+
+
+
+
+
 
   // saveRecipe(isComplete: boolean) {
   //   this.recipeData.isCompleted = isComplete ? 1 : 0;
