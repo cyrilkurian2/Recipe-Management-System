@@ -24,7 +24,6 @@ namespace RecipeManagement.Application.Requets.Querries
 
         public async Task<List<IngredientDTO>> Handle(GetAllIngredientsQuery request, CancellationToken cancellationToken)
         {
-            // Fetch all ingredients and map to IngredientDTO
             var ingredients = await _context.Ingredients
                 .Select(x => new IngredientDTO
                 {

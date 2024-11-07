@@ -106,7 +106,7 @@ namespace RecipeManagement.Application.Requests.Queries
 
             if (recipe == null)
             {
-                return null; // Handle null case in controller
+                return null;
             }
 
             return new RecipeDTO

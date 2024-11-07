@@ -30,14 +30,14 @@ namespace RecipeManagement.Application.Requets.Querries
 
         public async Task<FavouritesDTO> Handle(GetFavouritesQuery request, CancellationToken cancellationToken)
         {
-            // Retrieve the user and favorite recipes for the specified UserId
+          
             var user = await _context.Users.FindAsync(request.UserId);
             if (user == null) return null;
 
             var recipes = await _context.Favourites
      .Where(f => f.user.UserId == request.UserId)
-     .Include(f => f.recipe)                   // Include the recipe navigation property
-     .ThenInclude(r => r.category)             // Then include category of the recipe
+     .Include(f => f.recipe)                  
+     .ThenInclude(r => r.category)             
      .Select(f => new RecipeDTO
      {
          RecipeId = f.recipe.RecipeId,

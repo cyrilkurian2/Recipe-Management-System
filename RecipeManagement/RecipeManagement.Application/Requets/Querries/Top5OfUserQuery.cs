@@ -100,7 +100,7 @@ namespace RecipeManagement.Application.Requests.Queries
                 {
                     RecipeId = r.Recipe.RecipeId,
                     RecipeTitle = r.Recipe.RecipeTitle,
-                    FavouriteCount = r.FavouritesCount // Include favourite count
+                    FavouriteCount = r.FavouritesCount 
                 })
                 .ToListAsync(cancellationToken);
 

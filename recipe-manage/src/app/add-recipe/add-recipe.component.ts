@@ -30,7 +30,7 @@ export class AddRecipeComponent implements OnInit {
     RecipeTitle: '',
     duration: '',
     RecipeDescription: '',
-    isComplete: false,
+    isComplete: true,
     categoryId: 0,
     userId: 0,
     RecipeImage: '',

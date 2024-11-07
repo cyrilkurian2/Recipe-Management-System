@@ -22,9 +22,9 @@ namespace RecipeManagement.API.Controllers
             var result = await _mediator.Send(new GetFavouritesQuery(userId));
             if (result == null)
             {
-                return NotFound(); // Return a 404 if the user or favorites are not found
+                return NotFound(); 
             }
-            return Ok(result); // Return a 200 response with the result
+            return Ok(result); 
         }
         [HttpGet("check")]
         public async Task<IActionResult> IsFavourite(int userId, int recipeId)

@@ -57,10 +57,10 @@ namespace RecipeManagement.Application.Requets.Commands.RecipeCommands
             RecipeAuthor recipeAuthor = new RecipeAuthor
             {
                 Recipe = recipe,
-                User = _context.Users.FirstOrDefault(u => u.UserId == request.UserId)  // Set the User from UserId
+                User = _context.Users.FirstOrDefault(u => u.UserId == request.UserId)  
             };
 
-            _context.RecipeAuthors.Add(recipeAuthor); // Add RecipeAuthor to the context
+            _context.RecipeAuthors.Add(recipeAuthor); 
             await _context.SaveChangesAsync(cancellationToken);
 
             return recipe.RecipeId;

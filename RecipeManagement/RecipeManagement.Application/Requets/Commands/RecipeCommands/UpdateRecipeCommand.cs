@@ -102,7 +102,6 @@ namespace RecipeManagement.Application.Requests.Commands.RecipeCommands
             recipe.IsComplete = request.IsComplete;
 
 
-            // Update category if needed
             if (recipe.category == null || recipe.category.CategoryId != request.CategoryId)
             {
                 var category = await _context.Category.FindAsync(request.CategoryId);

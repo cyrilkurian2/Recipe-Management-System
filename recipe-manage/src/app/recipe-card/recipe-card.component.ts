@@ -19,7 +19,7 @@ interface Recipe {
   recipeDescription: string;
   duration: string;
   favouritesCount: number;
-  isfav: boolean;
+  isfav?: boolean;
   categoryDTO: CategoryDTO;
   recipeImage: string;
 }
@@ -139,15 +139,48 @@ export class RecipeCardComponent implements OnInit {
   }
 
 
+  // fetchRecipesByCategory(categoryName: string): void {
+  //   this.loading = true;
+  //   this.recipeService.viewRecipeByCategory(categoryName).subscribe(
+  //     (response) => {
+  //       this.recipes = response.map((recipe: Recipe) => ({
+  //         ...recipe,
+  //         recipeImage: `data:image/jpeg;base64,${recipe.recipeImage}`,
+  //       }));
+  //       this.loading = false;
+  //     },
+  //     (error) => {
+  //       console.error(`Failed to load recipes for category ${categoryName}:`, error);
+  //       this.loading = false;
+  //     }
+  //   );
+  // }
+
+
+
+  
+
+
   fetchRecipesByCategory(categoryName: string): void {
     this.loading = true;
+    const userId = this.recipeService.userId;
+  
     this.recipeService.viewRecipeByCategory(categoryName).subscribe(
       (response) => {
-        this.recipes = response.map((recipe: Recipe) => ({
-          ...recipe,
-          recipeImage: `data:image/jpeg;base64,${recipe.recipeImage}`,
-        }));
-        this.loading = false;
+        
+        const recipePromises = response.map((recipe: { recipeId: number; recipeImage: any; }) =>
+          this.recipeService.checkFavourite(userId, recipe.recipeId).toPromise().then(isFav => ({
+            ...recipe,
+            recipeImage: `data:image/jpeg;base64,${recipe.recipeImage}`,
+            isfav: Boolean(isFav) 
+          }))
+        );
+  
+        
+        Promise.all(recipePromises).then(recipes => {
+          this.recipes = recipes;
+          this.loading = false;
+        });
       },
       (error) => {
         console.error(`Failed to load recipes for category ${categoryName}:`, error);
@@ -158,15 +191,73 @@ export class RecipeCardComponent implements OnInit {
   
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+  // loadRecipes(): void {
+  //   this.loading = true;
+  //   const userId = this.recipeService.userId;
+
+  //   this.recipeService.viewAllRecipes().subscribe(
+  //     (data: Recipe[]) => {
+  //       this.recipes = data.map(recipe => ({
+  //         ...recipe,
+  //         recipeImage: `data:image/jpeg;base64,${recipe.recipeImage}`,
+  //         // isfav: recipe.isfav
+  //       }));
+  //       this.loading = false;
+  //     },
+  //     (error) => {
+  //       console.error('Failed to fetch recipes:', error);
+  //       this.loading = false;
+  //     }
+  //   );
+  // }
+
+
+
+
+
+
   loadRecipes(): void {
     this.loading = true;
+    const userId = this.recipeService.userId;
+  
     this.recipeService.viewAllRecipes().subscribe(
       (data: Recipe[]) => {
-        this.recipes = data.map(recipe => ({
-          ...recipe,
-          recipeImage: `data:image/jpeg;base64,${recipe.recipeImage}`,
-        }));
-        this.loading = false;
+        
+        const recipePromises = data.map(recipe =>
+          this.recipeService.checkFavourite(userId, recipe.recipeId).toPromise().then(isFav => ({
+            ...recipe,
+            recipeImage: `data:image/jpeg;base64,${recipe.recipeImage}`,
+            isfav: isFav 
+          }))
+        );
+  
+        
+        Promise.all(recipePromises).then(recipes => {
+          this.recipes = recipes;
+          this.loading = false;
+        });
       },
       (error) => {
         console.error('Failed to fetch recipes:', error);
@@ -174,6 +265,19 @@ export class RecipeCardComponent implements OnInit {
       }
     );
   }
+  
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   get filteredRecipes() {

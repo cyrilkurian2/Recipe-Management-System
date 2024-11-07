@@ -50,8 +50,8 @@ namespace RecipeManagement.Application.Requets.Querries
 
 
             var recipes = await _context.RecipeAuthors
-            .Where(ra => ra.User.UserId == request.UserId) // Filter by UserId
-            .Select(ra => ra.Recipe) // Select associated Recipe
+            .Where(ra => ra.User.UserId == request.UserId) 
+            .Select(ra => ra.Recipe) 
             .GroupJoin(
                 _context.Favourites,
                 recipe => recipe.RecipeId,
@@ -72,7 +72,7 @@ namespace RecipeManagement.Application.Requets.Querries
                     CategoryId = r.Recipe.category.CategoryId,
                     CategoryName = r.Recipe.category.CategoryName
                 },
-                FavouritesCount = r.FavouritesCount // Include the count of users who favorited this recipe
+                FavouritesCount = r.FavouritesCount 
             })
             .ToListAsync(cancellationToken);
 

@@ -212,5 +212,10 @@ export class RecipeService {
       headers: this.getHeaders()
     });
   }
+
+  checkFavourite(userId: number, recipeId: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.baseUrl}/api/GetFavourites/check?userId=${userId}&recipeId=${recipeId}`);
+  }
+  
   
 }
